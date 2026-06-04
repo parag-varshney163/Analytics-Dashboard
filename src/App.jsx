@@ -12,6 +12,7 @@ import SupplySide from "./pages/SupplySide";
 import DemandSide from "./pages/DemandSide";
 import LoginPage from "./pages/LoginPage";
 import ROUTES from "./constants/Routes";
+import Recharge from "./pages/Recharge";
 
 
 function App() {
@@ -68,6 +69,14 @@ function App() {
           element={
             <ProtectedRoute section="moderationDashboard" permissionKey="report">
               <DemandSide/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.RECHARGE}
+          element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+              <Recharge/>
             </ProtectedRoute>
           }
         />

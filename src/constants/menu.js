@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, User2, ShoppingCart, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, User2, ShoppingCart, Wallet, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -20,7 +20,15 @@ const MENU_ITEMS = [
       key: "report",
     },
   },
-
+   {
+    name: "Recharge",
+    icon: Wallet,
+    path: "/recharge",
+    permission: {
+      section: "moderationDashboard",
+      key: "report",
+    },
+  },
   // ⭐ Logout (no permission)
   {
     name: "Logout",

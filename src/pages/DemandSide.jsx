@@ -34,12 +34,13 @@ const DemandSide = () => {
 
   const [loading, setLoading] = useState(false);
   const [metricsData, setMetricsData] = useState({});
+  const [packDistributionData, setPackDistributionData] = useState([]);
 
   const fetchData = async (selectedFilter = filter) => {
     try {
       setLoading(true);
 
-      const [kpiRes, hourlyRes, distributionRes, metricsRes] =
+      const [kpiRes, hourlyRes, distributionRes, metricsRes, packDistributionRes] =
         await Promise.all([
           axiosInstance.get("/api/v1/demand/dashboard-cards", {
             params: { filter: selectedFilter },
@@ -55,12 +56,16 @@ const DemandSide = () => {
           axiosInstance.get("/api/v1/demand/metrics-tables", {
             params: { filter: selectedFilter },
           }),
+          axiosInstance.get("/api/v1/demand/pack-distribution", {
+            params: { filter: selectedFilter },
+          }),
         ]);
 
       setKpiData(kpiRes.data.data);
       setHourlyData(hourlyRes.data.data);
       setDistributionData(distributionRes.data.data);
       setMetricsData(metricsRes.data.data);
+      setPackDistributionData(packDistributionRes.data.data || []);
     } catch (err) {
       console.error(err);
     } finally {
@@ -110,7 +115,7 @@ const DemandSide = () => {
             distributionData={distributionData}
           />
 
-          <DemandSideMetricsTable data={kpiData} />
+          <DemandSideMetricsTable data={packDistributionData} />
           <DemandSideMetricsCards data={metricsData} />
         </div>
       </motion.main>

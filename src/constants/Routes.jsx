@@ -5,6 +5,7 @@ const ROUTES = {
   UPDATE_PASSWORD: `/updatePassword/:token`,
   DASHBOARD: "/supply-side",
   DEMAND_SIDE:"/demand-side",
+  RECHARGE:"/recharge",
 };
 
 export default ROUTES;

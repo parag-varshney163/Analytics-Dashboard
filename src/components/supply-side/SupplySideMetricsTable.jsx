@@ -12,11 +12,11 @@ const SupplySideMetricsTable = ({ data }) => {
       width: "2fr",
       align: "left",
     },
-    {
-      key: "today",
-      label: "Today",
-      width: "1fr",
-    },
+    // {
+    //   key: "today",
+    //   label: "Today",
+    //   width: "1fr",
+    // },
     {
       key: "yesterday",
       label: "Yesterday",
