@@ -4,6 +4,7 @@ import React from "react";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
 import ResetPassword from "./pages/ResetPassword";
+import Notifications from "./pages/Notifications";
 import Unauthorized from "./pages/Unauthorized";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
@@ -77,6 +78,14 @@ function App() {
           element={
             <ProtectedRoute section="moderationDashboard" permissionKey="report">
               <Recharge/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.NOTIFICATION}
+          element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+              <Notifications/>
             </ProtectedRoute>
           }
         />

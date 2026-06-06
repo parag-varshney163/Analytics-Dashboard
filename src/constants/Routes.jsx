@@ -6,6 +6,7 @@ const ROUTES = {
   DASHBOARD: "/supply-side",
   DEMAND_SIDE:"/demand-side",
   RECHARGE:"/recharge",
+  NOTIFICATION:"/notifications"
 };
 
 export default ROUTES;
