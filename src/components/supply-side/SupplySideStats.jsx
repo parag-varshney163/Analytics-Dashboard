@@ -64,8 +64,8 @@ export default function SupplySideStats({data,loading}) {
   //   },
   // ];
 
-  const current = data?.today || {};
-const previous = data?.yesterday || {};
+  const current = data?.yesterday || {};
+const previous = data?.beforeYesterday || {};
 
 const stats = [
   {
