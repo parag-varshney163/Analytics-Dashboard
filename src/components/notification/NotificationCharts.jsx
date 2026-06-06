@@ -161,8 +161,8 @@ export default function NotificationCharts({ data }) {
                 <Pie
                   data={notificationTypes}
                   dataKey="value"
-                  innerRadius={70}
-                  outerRadius={110}
+                  innerRadius={50}
+                  outerRadius={85}
                   stroke={colors.primary}
                 >
                   {notificationTypes.map((entry, index) => (

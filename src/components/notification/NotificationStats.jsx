@@ -123,8 +123,8 @@ export default function NotificationStats({ data, loading }) {
                 {/* Icon */}
                 <div
                   style={{
-                    width: 38,
-                    height: 38,
+                    width: 30,
+                    height: 30,
                     borderRadius: 8,
                     display: "flex",
                     alignItems: "center",
