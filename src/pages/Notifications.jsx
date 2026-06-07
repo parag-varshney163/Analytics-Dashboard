@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import React from "react";
 
+import NotificationHighlightsCards from "../components/notification/NotificationHighlightsCards";
+import NotificationMetricsCards from "../components/notification/NotificationMetricsCards";
 import DemandSideMetricsCards from "../components/demand-side/DemandSideMetricsCards ";
 import SupplySideMetricsTable from "../components/supply-side/SupplySideMetricsTable";
 import DemandSideMetricsTable from "../components/demand-side/DemandSideMetricsTable";
@@ -47,7 +49,7 @@ const Notifications = () => {
         try {
             setLoading(true);
 
-            const [kpiRes, revenueMixRes, hourlyRes,packDistributionRes] =
+            const [kpiRes, revenueMixRes,packDistributionRes,hourlyRes] =
                 await Promise.all([
                     axiosInstance.get("/api/v1/notifications/stats", {
                         params: { filter: selectedFilter },
@@ -55,10 +57,10 @@ const Notifications = () => {
                     axiosInstance.get("/api/v1/notifications/funnel", {
                         params: { filter: selectedFilter },
                     }),
-                    axiosInstance.get("/api/v1/recharge/hourly-activity", {
+                    axiosInstance.get("/api/v1/notifications/insights", {
                         params: { filter: selectedFilter },
                     }),
-                     axiosInstance.get("/api/v1/recharge/pack-distribution", {
+                     axiosInstance.get("/api/v1/notifications/highlights", {
                     params: { filter: selectedFilter },
                 }),
                 ]);
@@ -68,8 +70,9 @@ const Notifications = () => {
             setNotificationStats(kpiRes?.data.data);
             
             setNotificationChartData(revenueMixRes.data.data);
-            setHourlyRechargeData(hourlyRes.data.data || []);
+            //setHourlyRechargeData(hourlyRes.data.data || []);
             setPackDistributionData(packDistributionRes.data.data || []);
+            setHourlyRechargeData(hourlyRes.data.data || []);
         } catch (err) {
             console.error(err);
         } finally {
@@ -114,8 +117,10 @@ const Notifications = () => {
                         loading={loading}
                     />
                     <NotificationCharts data={notificationChartData} />
+                    <NotificationMetricsCards data={packDistributionData}/>
                     {/* <TimeOfDayRechargeChart data={hourlyRechargeData} />
                     <RechargeMetricsTable data={packDistributionData}/> */}
+                    <NotificationHighlightsCards data={hourlyRechargeData}/>
 
                 </div>
             </motion.main>
