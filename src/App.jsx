@@ -9,6 +9,7 @@ import Unauthorized from "./pages/Unauthorized";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
+import TrustSafety from "./pages/TrustSafety";
 import SupplySide from "./pages/SupplySide";
 import DemandSide from "./pages/DemandSide";
 import LoginPage from "./pages/LoginPage";
@@ -86,6 +87,14 @@ function App() {
           element={
             <ProtectedRoute section="moderationDashboard" permissionKey="report">
               <Notifications/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path={ROUTES.TRUST_SAFETY}
+          element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+              <TrustSafety/>
             </ProtectedRoute>
           }
         />
