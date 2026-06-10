@@ -15,6 +15,7 @@ import DemandSide from "./pages/DemandSide";
 import LoginPage from "./pages/LoginPage";
 import ROUTES from "./constants/Routes";
 import Recharge from "./pages/Recharge";
+import Reports from "./pages/Reports";
 
 
 function App() {
@@ -95,6 +96,14 @@ function App() {
           element={
             <ProtectedRoute section="moderationDashboard" permissionKey="report">
               <TrustSafety/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.REPORTS}
+          element={
+            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+              <Reports/>
             </ProtectedRoute>
           }
         />

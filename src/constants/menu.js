@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, User2, ShoppingCart, Wallet, Bell, ScanFace, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, User2, ShoppingCart, Wallet, Bell, ScanFace, File, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -42,6 +42,15 @@ const MENU_ITEMS = [
     name: "Trust & Safety",
     icon: ScanFace,
     path: "/trust-safety",
+    permission: {
+      section: "moderationDashboard",
+      key: "report",
+    },
+  },
+    {
+    name: "Reports",
+    icon: File,
+    path: "/reports",
     permission: {
       section: "moderationDashboard",
       key: "report",

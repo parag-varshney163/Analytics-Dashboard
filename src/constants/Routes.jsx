@@ -8,6 +8,7 @@ const ROUTES = {
   RECHARGE:"/recharge",
   NOTIFICATION:"/notifications",
   TRUST_SAFETY:"/trust-safety",
+  REPORTS:"/reports"
 };
 
 export default ROUTES;
