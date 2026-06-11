@@ -180,6 +180,136 @@ export default function WeeklyReports() {
         ],
         []
     );
+    const rechargeTransactionColumns = useMemo(
+        () => [
+            {
+                key: "transactionId",
+                label: "Transaction ID",
+            },
+            {
+                key: "dateTime",
+                label: "Date & Time",
+                render: (value) =>
+                    value
+                        ? new Date(value).toLocaleString("en-IN")
+                        : "-",
+            },
+            {
+                key: "user",
+                label: "User",
+            },
+            {
+                key: "amount",
+                label: "Amount",
+            },
+            {
+                key: "coin",
+                label: "Coins",
+                render: (value) => value || "-",
+            },
+            {
+                key: "type",
+                label: "Type",
+                render: (value) =>
+                    value?.replaceAll("_", " ") || "-",
+            },
+            {
+                key: "gateway",
+                label: "Gateway",
+            },
+            {
+                key: "status",
+                label: "Status",
+                render: (value) => {
+                    const bgColor =
+                        value === "paid"
+                            ? "#14532D"
+                            : value === "pending"
+                                ? "#92400E"
+                                : "#7F1D1D";
+
+                    return (
+                        <span
+                            className="px-3 py-1 rounded-md text-xs capitalize"
+                            style={{ background: bgColor }}
+                        >
+                            {value}
+                        </span>
+                    );
+                },
+            },
+        ],
+        []
+    );
+    const payoutSummaryColumns = useMemo(
+        () => [
+            {
+                key: "uid",
+                label: "UID",
+            },
+            {
+                key: "name",
+                label: "Creator",
+            },
+            {
+                key: "bank",
+                label: "Bank",
+            },
+            {
+                key: "period",
+                label: "Period",
+            },
+            {
+                key: "calls",
+                label: "Calls",
+            },
+            {
+                key: "chat",
+                label: "Chat",
+            },
+            {
+                key: "games",
+                label: "Games",
+            },
+            {
+                key: "gross",
+                label: "Gross Earnings",
+            },
+            {
+                key: "feeTds",
+                label: "Fee / TDS",
+            },
+            {
+                key: "netPayout",
+                label: "Net Payout",
+                render: (value) => (
+                    <span className="font-semibold">
+                        {value}
+                    </span>
+                ),
+            },
+            {
+                key: "status",
+                label: "Status",
+                render: (value) => (
+                    <span
+                        className="px-3 py-1 rounded-md text-xs capitalize"
+                        style={{
+                            background:
+                                value === "paid"
+                                    ? "#14532D"
+                                    : value === "pending"
+                                        ? "#92400E"
+                                        : "#7F1D1D",
+                        }}
+                    >
+                        {value}
+                    </span>
+                ),
+            },
+        ],
+        []
+    );
     const columns = useMemo(() => {
         switch (activeTab) {
             case "creator-kundli":
@@ -188,6 +318,10 @@ export default function WeeklyReports() {
             case "user-details":
                 return userDetailsColumns;
 
+            case "recharge-transactions":
+                return rechargeTransactionColumns;
+            case "payout-summary":
+                return payoutSummaryColumns;
             default:
                 return creatorColumns;
         }
