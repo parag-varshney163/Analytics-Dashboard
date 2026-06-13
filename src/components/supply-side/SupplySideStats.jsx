@@ -121,7 +121,7 @@ const stats = [
       current.callAcceptPct >= previous.callAcceptPct,
   },
   {
-    title: "Onboarded Today",
+    title: "Onboarded",
     value: current.onboarded || 0,
     icon: UserPlus,
     change: `${calculateChange(

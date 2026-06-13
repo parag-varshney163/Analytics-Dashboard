@@ -44,48 +44,60 @@ import colors from "../../constants/colors";
 //   },
 // ];
 
-export default function SupplySideCharts({hourlyData,distributionData}) {
+export default function SupplySideCharts({ hourlyData, distributionData }) {
   const chartData =
-  hourlyData?.activeCreators?.map((item) => {
-    const callMatch =
-      hourlyData?.connectedCalls?.find(
-        (c) => c._id === Number(item._id.split("-")[0])
-      );
+    hourlyData?.activeCreators?.map((item) => {
+      const callMatch =
+        hourlyData?.connectedCalls?.find(
+          (c) => c._id === Number(item._id.split("-")[0])
+        );
 
-    return {
-      time: item._id,
-      creators: item.activeCreators,
-      calls: callMatch?.calls || 0,
-    };
-  }) || [];
+      return {
+        time: item._id,
+        creators: item.activeCreators,
+        calls: callMatch?.calls || 0,
+      };
+    }) || [];
+  //   const durationColors = [
+  //   "#F47A2A",
+  //   "#E8AF3C",
+  //   "#F0DC5A",
+  //   "#F3E4A3",
+  // ];
   const durationColors = [
-  "#F47A2A",
-  "#E8AF3C",
-  "#F0DC5A",
-  "#F3E4A3",
-];
+    "#EF4444", // Red
+    "#F97316", // Orange
+    "#F59E0B", // Amber
+    "#FCD34D", // Light Gold
+  ];
 
-const durationData =
-  distributionData?.callDurations?.map((item, index) => ({
-    name: item._id,
-    value: item.count,
-    color: durationColors[index % durationColors.length],
-  })) || [];
+  const durationData =
+    distributionData?.callDurations?.map((item, index) => ({
+      name: item._id,
+      value: item.count,
+      color: durationColors[index % durationColors.length],
+    })) || [];
+  //   const earningColors = [
+  //   "#64D2A4",
+  //   "#E8D26D",
+  //   "#6BC7F3",
+  // ];
+
   const earningColors = [
-  "#64D2A4",
-  "#E8D26D",
-  "#6BC7F3",
-];
+    "#DC2626", // Dark Red
+    "#F87171", // Soft Red
+    "#FBBF24", // Gold
+  ];
 
-const earningsData =
-  distributionData?.earnings?.map((item, index) => ({
-    name: item._id
-      .replaceAll("_", " ")
-      .replace(/\b\w/g, (c) => c.toUpperCase()),
-    value: item.totalAmount,
-    amount: `₹${item.totalAmount}`,
-    color: earningColors[index % earningColors.length],
-  })) || [];
+  const earningsData =
+    distributionData?.earnings?.map((item, index) => ({
+      name: item._id
+        .replaceAll("_", " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase()),
+      value: item.totalAmount,
+      amount: `₹${item.totalAmount}`,
+      color: earningColors[index % earningColors.length],
+    })) || [];
 
   return (
     <div
@@ -134,7 +146,7 @@ const earningsData =
         >
           <span
             style={{
-              color: "#F3E4A3",
+              color: "#EF4444",
               fontSize: "18px",
               fontWeight: 600,
             }}
@@ -194,15 +206,32 @@ const earningsData =
               }}
             />
 
-            <Line
+            {/* <Line
               yAxisId="left"
               type="monotone"
               dataKey="creators"
               stroke="#F3E4A3"
               strokeWidth={4}
               dot={false}
+            /> */}
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="creators"
+              stroke="#EF4444"
+              strokeWidth={4}
+              dot={false}
+              activeDot={{ r: 6 }}
             />
 
+            {/* <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="calls"
+              stroke={colors.accent}
+              strokeWidth={4}
+              dot={false}
+            /> */}
             <Line
               yAxisId="right"
               type="monotone"
@@ -210,6 +239,7 @@ const earningsData =
               stroke={colors.accent}
               strokeWidth={4}
               dot={false}
+              activeDot={{ r: 6 }}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -237,7 +267,7 @@ const earningsData =
                 width: 14,
                 height: 14,
                 borderRadius: "50%",
-                background: "#F3E4A3",
+                background: "#EF4444",
               }}
             />
             Active Creators

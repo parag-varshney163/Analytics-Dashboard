@@ -4,14 +4,23 @@ import React from "react";
 import colors from "../../constants/colors";
 
 
+// const PIE_COLORS = [
+//   "#F4DF63",
+//   "#E8D47A",
+//   "#F2D248",
+//   "#ECAF3D",
+//   "#F27A2E",
+//   "#F44321",
+//   "#C2410C",
+// ];
 const PIE_COLORS = [
-  "#F4DF63",
-  "#E8D47A",
-  "#F2D248",
-  "#ECAF3D",
-  "#F27A2E",
-  "#F44321",
-  "#C2410C",
+  "#EF4444", // Red
+  "#3B82F6", // Blue
+  "#10B981", // Green
+  "#F59E0B", // Amber
+  "#8B5CF6", // Purple
+  "#EC4899", // Pink
+  "#06B6D4", // Cyan
 ];
 
 const RechargeCharts = ({ data }) => {

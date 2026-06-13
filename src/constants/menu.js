@@ -7,8 +7,8 @@ const MENU_ITEMS = [
     icon: User2,
     path: "/supply-side",
     permission: {
-      section: "moderationDashboard",
-      key: "report",
+      section: "analyticsDashboard",
+      key: "supplySide",
     },
   },
   {
@@ -16,8 +16,8 @@ const MENU_ITEMS = [
     icon: ShoppingCart,
     path: "/demand-side",
     permission: {
-      section: "moderationDashboard",
-      key: "report",
+      section: "analyticsDashboard",
+      key: "demandSide",
     },
   },
    {
@@ -25,8 +25,8 @@ const MENU_ITEMS = [
     icon: Wallet,
     path: "/recharge",
     permission: {
-      section: "moderationDashboard",
-      key: "report",
+      section: "analyticsDashboard",
+      key: "recharge",
     },
   },
    {
@@ -34,8 +34,8 @@ const MENU_ITEMS = [
     icon: Bell,
     path: "/notifications",
     permission: {
-      section: "moderationDashboard",
-      key: "report",
+      section: "analyticsDashboard",
+      key: "notification",
     },
   },
     {
@@ -43,8 +43,8 @@ const MENU_ITEMS = [
     icon: ScanFace,
     path: "/trust-safety",
     permission: {
-      section: "moderationDashboard",
-      key: "report",
+      section: "analyticsDashboard",
+      key: "trustAndSafety",
     },
   },
     {
@@ -52,8 +52,8 @@ const MENU_ITEMS = [
     icon: File,
     path: "/reports",
     permission: {
-      section: "moderationDashboard",
-      key: "report",
+      section: "analyticsDashboard",
+      key: "weeklyReport",
     },
   },
   // ⭐ Logout (no permission)

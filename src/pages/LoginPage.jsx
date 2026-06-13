@@ -119,20 +119,34 @@ import logo from "../assets/logo.webp";
 /** ---------------------------------------
  * 🔥 FIRST ACCESSIBLE ROUTE FINDER
  * -------------------------------------- */
+// const findFirstAccessibleRoute = (permissions) => {
+//   if (!permissions) return ROUTES.UNAUTHORIZED;
+
+//   const p = permissions.moderationDashboard || {};
+
+//   if (p.report) return ROUTES.DASHBOARD;
+//   if (p.moderationPanel) return ROUTES.MODERATION_PANEL;
+//   if (p.activityLog) return ROUTES.ACTIVITY_LOG;
+//   if (p.qualityReview) return ROUTES.QUALITY_REVIEW;
+//   if (p.creatorScores) return ROUTES.CREATOR_SCORES;
+//   if (p.customerSupport) return ROUTES.CUSTOMER_SUPPORT;
+//   if (p.insightsAndMetrices) return ROUTES.INSIGHTS_METRICES;
+//   if (p.flagged) return ROUTES.FLAGGED;
+//   if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
+
+//   return ROUTES.UNAUTHORIZED;
+// };
 const findFirstAccessibleRoute = (permissions) => {
   if (!permissions) return ROUTES.UNAUTHORIZED;
 
-  const p = permissions.moderationDashboard || {};
+  const p = permissions.analyticsDashboard || {};
 
-  if (p.report) return ROUTES.DASHBOARD;
-  if (p.moderationPanel) return ROUTES.MODERATION_PANEL;
-  if (p.activityLog) return ROUTES.ACTIVITY_LOG;
-  if (p.qualityReview) return ROUTES.QUALITY_REVIEW;
-  if (p.creatorScores) return ROUTES.CREATOR_SCORES;
-  if (p.customerSupport) return ROUTES.CUSTOMER_SUPPORT;
-  if (p.insightsAndMetrices) return ROUTES.INSIGHTS_METRICES;
-  if (p.flagged) return ROUTES.FLAGGED;
-  if (p.chatbotTemplate) return ROUTES.CHATBOT_TEMPLATES;
+  if (p.supplySide) return ROUTES.DASHBOARD;
+  if (p.demandSide) return ROUTES.DEMAND_SIDE;
+  if (p.recharge) return ROUTES.RECHARGE;
+  if (p.notification) return ROUTES.NOTIFICATION;
+  if (p.trustAndSafety) return ROUTES.TRUST_SAFETY;
+  if (p.weeklyReport) return ROUTES.REPORTS;
 
   return ROUTES.UNAUTHORIZED;
 };

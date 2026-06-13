@@ -22,12 +22,12 @@ const tabs = [
         icon: User,
         endpoint: "/api/v1/reports/user-details",
     },
-    {
-        key: "recharge-transactions",
-        label: "Recharge Transactions",
-        icon: CreditCard,
-        endpoint: "/api/v1/reports/recharge-transactions",
-    },
+    // {
+    //     key: "recharge-transactions",
+    //     label: "Recharge Transactions",
+    //     icon: CreditCard,
+    //     endpoint: "/api/v1/reports/recharge-transactions",
+    // },
     {
         key: "payout-summary",
         label: "Payout Summary",

@@ -62,7 +62,7 @@ function App() {
         <Route
           path={ROUTES.DASHBOARD}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+            <ProtectedRoute section="analyticsDashboard" permissionKey="supplySide">
               <SupplySide/>
             </ProtectedRoute>
           }
@@ -70,7 +70,7 @@ function App() {
         <Route
           path={ROUTES.DEMAND_SIDE}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+            <ProtectedRoute section="analyticsDashboard" permissionKey="demandSide">
               <DemandSide/>
             </ProtectedRoute>
           }
@@ -78,7 +78,7 @@ function App() {
         <Route
           path={ROUTES.RECHARGE}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+            <ProtectedRoute section="analyticsDashboard" permissionKey="recharge">
               <Recharge/>
             </ProtectedRoute>
           }
@@ -86,7 +86,7 @@ function App() {
         <Route
           path={ROUTES.NOTIFICATION}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+            <ProtectedRoute section="analyticsDashboard" permissionKey="notification">
               <Notifications/>
             </ProtectedRoute>
           }
@@ -94,7 +94,7 @@ function App() {
          <Route
           path={ROUTES.TRUST_SAFETY}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+            <ProtectedRoute section="analyticsDashboard" permissionKey="trustAndSafety">
               <TrustSafety/>
             </ProtectedRoute>
           }
@@ -102,7 +102,7 @@ function App() {
         <Route
           path={ROUTES.REPORTS}
           element={
-            <ProtectedRoute section="moderationDashboard" permissionKey="report">
+            <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
               <Reports/>
             </ProtectedRoute>
           }

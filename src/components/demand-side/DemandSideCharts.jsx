@@ -4,7 +4,7 @@ import React from "react";
 import colors from "../../constants/colors";
 
 
-export default function DemandSideCharts({hourlyData=[],distributionData={}}) {
+export default function DemandSideCharts({ hourlyData = [], distributionData = {} }) {
   // const hourlyData = [
   //   { time: "12 AM", recharges: 170, registrations: 2200 },
   //   { time: "3 AM", recharges: 210, registrations: 2800 },
@@ -51,32 +51,46 @@ export default function DemandSideCharts({hourlyData=[],distributionData={}}) {
   // ];
 
   const chartData = hourlyData.map((item) => ({
-  time: `${item.hour}:00`,
-  recharges: item.recharges,
-  registrations: item.registrations,
-}));
-const rechargeData =
-  distributionData?.rechargeByType?.map((item, index) => ({
-    name: item.type
-      .replaceAll("_", " ")
-      .replace(/\b\w/g, (c) => c.toUpperCase()),
-    value: item.count,
-    color: ["#F3E28C", "#EFD95D", "#E8AF3C"][index % 3],
-  })) || [];
+    time: `${item.hour}:00`,
+    recharges: item.recharges,
+    registrations: item.registrations,
+  }));
+  // const rechargeData =
+  //   distributionData?.rechargeByType?.map((item, index) => ({
+  //     name: item.type
+  //       .replaceAll("_", " ")
+  //       .replace(/\b\w/g, (c) => c.toUpperCase()),
+  //     value: item.count,
+  //     color: ["#F3E28C", "#EFD95D", "#E8AF3C"][index % 3],
+  //   })) || [];
+  const rechargeColors = [
+    "#DC2626", // Dark Red
+    "#F87171", // Light Red
+    colors.accent, // Gold
+  ];
+
+  const rechargeData =
+    distributionData?.rechargeByType?.map((item, index) => ({
+      name: item.type
+        .replaceAll("_", " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase()),
+      value: item.count,
+      color: rechargeColors[index % rechargeColors.length],
+    })) || [];
   const retentionData = [
-  {
-    cohort: "D1",
-    value: distributionData?.retentionCohorts?.d1 || 0,
-  },
-  {
-    cohort: "D3",
-    value: distributionData?.retentionCohorts?.d3 || 0,
-  },
-  {
-    cohort: "D7",
-    value: distributionData?.retentionCohorts?.d7 || 0,
-  },
-];
+    {
+      cohort: "D1",
+      value: distributionData?.retentionCohorts?.d1 || 0,
+    },
+    {
+      cohort: "D3",
+      value: distributionData?.retentionCohorts?.d3 || 0,
+    },
+    {
+      cohort: "D7",
+      value: distributionData?.retentionCohorts?.d7 || 0,
+    },
+  ];
 
   return (
     <div
@@ -125,7 +139,7 @@ const rechargeData =
         >
           <span
             style={{
-              color: "#E8AF3C",
+              color: colors.accent,
               fontSize: "18px",
               fontWeight: 600,
             }}
@@ -135,7 +149,7 @@ const rechargeData =
 
           <span
             style={{
-              color: "#F3E28C",
+              color: "#EF4444",
               fontSize: "18px",
               fontWeight: 600,
             }}
@@ -183,22 +197,40 @@ const rechargeData =
               }}
             />
 
-            <Line
+            {/* <Line
               yAxisId="left"
               type="monotone"
               dataKey="recharges"
               stroke="#E8AF3C"
               strokeWidth={4}
               dot={false}
+            /> */}
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="recharges"
+              stroke={colors.accent}
+              strokeWidth={4}
+              dot={false}
+              activeDot={{ r: 6 }}
             />
 
-            <Line
+            {/* <Line
               yAxisId="right"
               type="monotone"
               dataKey="registrations"
               stroke="#F3E28C"
               strokeWidth={4}
               dot={false}
+            /> */}
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="registrations"
+              stroke="#EF4444"
+              strokeWidth={4}
+              dot={false}
+              activeDot={{ r: 6 }}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -225,7 +257,7 @@ const rechargeData =
                 width: 14,
                 height: 14,
                 borderRadius: "50%",
-                background: "#E8AF3C",
+                background: colors.accent,
               }}
             />
             Recharges
@@ -245,7 +277,7 @@ const rechargeData =
                 width: 14,
                 height: 14,
                 borderRadius: "50%",
-                background: "#F3E28C",
+                background: "#EF4444",
               }}
             />
             Registrations
@@ -405,7 +437,7 @@ const rechargeData =
               <Bar
                 dataKey="value"
                 radius={[6, 6, 0, 0]}
-                fill="#DCC756"
+                fill="#DC2626"
               />
             </BarChart>
           </ResponsiveContainer>

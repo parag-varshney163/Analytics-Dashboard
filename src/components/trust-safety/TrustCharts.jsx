@@ -4,7 +4,12 @@ import React from "react";
 import colors from "../../constants/colors";
 
 
-const PIE_COLORS = ["#E8D47A", "#F4DF63", "#ECAF3D", "#EE7A2F"];
+const PIE_COLORS = [
+  colors.accent, // Gold
+  "#EF4444",     // Red
+  "#3B82F6",     // Blue
+  "#10B981",     // Green
+];
 
 export default function TrustCharts({ data }) {
   if (!data) return null;
@@ -21,9 +26,9 @@ export default function TrustCharts({ data }) {
 
   const chatSources = data.chatFlagsSource || [];
 
-  const totalActioned = resolutionStatus
-    .filter((item) => item.name !== "Pending")
-    .reduce((sum, item) => sum + item.value, 0);
+  // const totalActioned = resolutionStatus
+  //   .filter((item) => item.name !== "Pending")
+  //   .reduce((sum, item) => sum + item.value, 0);
 
   return (
     <div
@@ -269,8 +274,10 @@ export default function TrustCharts({ data }) {
                   outerRadius={70}
                   stroke={colors.primary}
                 >
-                  <Cell fill="#E8D47A" />
-                  <Cell fill="#F4DF63" />
+                  {/* <Cell fill="#E8D47A" />
+                  <Cell fill="#F4DF63" /> */}
+                  <Cell fill={colors.accent} />
+                  <Cell fill="#EF4444" />
                 </Pie>
 
                 <Tooltip />
@@ -309,8 +316,8 @@ export default function TrustCharts({ data }) {
                       borderRadius: "50%",
                       background:
                         index === 0
-                          ? "#E8D47A"
-                          : "#F4DF63",
+                          ? colors.accent
+                          : "#EF4444",
                     }}
                   />
 
@@ -334,7 +341,7 @@ export default function TrustCharts({ data }) {
               </div>
             ))}
 
-            <div
+            {/* <div
               style={{
                 marginTop: 10,
                 paddingTop: 14,
@@ -359,7 +366,7 @@ export default function TrustCharts({ data }) {
               >
                 {totalActioned}
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

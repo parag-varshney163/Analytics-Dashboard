@@ -4,7 +4,11 @@ import React from "react";
 import colors from "../../constants/colors";
 
 
-const PIE_COLORS = ["#E8D47A", "#F4DF63", "#ECAF3D"];
+const PIE_COLORS = [
+  "#EF4444", // Red
+  "#3B82F6", // Blue
+  "#10B981", // Green
+];
 
 export default function NotificationCharts({ data }) {
   if (!data) return null;

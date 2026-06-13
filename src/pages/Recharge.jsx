@@ -45,7 +45,7 @@ const Recharge = () => {
         try {
             setLoading(true);
 
-            const [kpiRes, revenueMixRes, hourlyRes,packDistributionRes] =
+            const [kpiRes, revenueMixRes,packDistributionRes] =
                 await Promise.all([
                     axiosInstance.get("/api/v1/recharge/kpi", {
                         params: { filter: selectedFilter },
@@ -53,9 +53,9 @@ const Recharge = () => {
                     axiosInstance.get("/api/v1/recharge/revenue-and-mix", {
                         params: { filter: selectedFilter },
                     }),
-                    axiosInstance.get("/api/v1/recharge/hourly-activity", {
-                        params: { filter: selectedFilter },
-                    }),
+                    // axiosInstance.get("/api/v1/recharge/hourly-activity", {
+                    //     params: { filter: selectedFilter },
+                    // }),
                      axiosInstance.get("/api/v1/recharge/pack-distribution", {
                     params: { filter: selectedFilter },
                 }),
@@ -66,7 +66,7 @@ const Recharge = () => {
             setRechargeStats(kpiRes.data.data);
             
             setRechargeChartData(revenueMixRes.data.data);
-            setHourlyRechargeData(hourlyRes.data.data || []);
+            // setHourlyRechargeData(hourlyRes.data.data || []);
             setPackDistributionData(packDistributionRes.data.data || []);
         } catch (err) {
             console.error(err);
@@ -112,7 +112,7 @@ const Recharge = () => {
                         loading={loading}
                     />
                     <RechargeCharts data={rechargeChartData} />
-                    <TimeOfDayRechargeChart data={hourlyRechargeData} />
+                    {/* <TimeOfDayRechargeChart data={hourlyRechargeData} /> */}
                     <RechargeMetricsTable data={packDistributionData}/>
 
                 </div>
