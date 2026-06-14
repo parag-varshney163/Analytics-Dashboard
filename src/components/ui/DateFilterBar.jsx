@@ -14,7 +14,7 @@ export default function DateFilterBar({
 
   const filterOptions = [
     "Yesterday",
-    "Last 2 Days",
+    "Before Yesterday",
     "Last 7 Days",
     "Last 30 Days",
     "This Month",

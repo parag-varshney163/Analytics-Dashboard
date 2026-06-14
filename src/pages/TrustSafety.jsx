@@ -29,7 +29,7 @@ import colors from "../constants/colors";
 
 const filterMap = {
     Yesterday: "yesterday",
-    "Last 2 Days": "day_before_yesterday",
+    "Before Yesterday": "day_before_yesterday",
     "Last 7 Days": "7d",
     "Last 30 Days": "30d",
     "This Month": "30d",

@@ -66,7 +66,7 @@ export default function NotificationMetricsCards({ data }) {
           </div>
 
           {/* Table Header */}
-          <div
+          {/* <div
             style={{
               display: "grid",
               gridTemplateColumns: "2fr 1fr 1fr",
@@ -80,10 +80,27 @@ export default function NotificationMetricsCards({ data }) {
             <span>Metric</span>
             <span style={{ textAlign: "center" }}>Value</span>
             <span style={{ textAlign: "right" }}>Change</span>
+          </div> */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr",
+              padding: "18px 32px",
+              borderBottom: `1px solid ${colors.cardBorder}`,
+              color: colors.accent,
+              fontSize: "16px",
+              fontWeight: 600,
+            }}
+          >
+            <span>Metric</span>
+            <span style={{ textAlign: "center" }}>Yesterday</span>
+            <span style={{ textAlign: "center" }}> Before Yesterday</span>
+            <span style={{ textAlign: "center" }}>7D Avg</span>
+            <span style={{ textAlign: "right" }}>Change</span>
           </div>
 
           {/* Rows */}
-          {section.rows.map((row, index) => (
+          {/* {section.rows.map((row, index) => (
             <div
               key={index}
               style={{
@@ -122,6 +139,73 @@ export default function NotificationMetricsCards({ data }) {
                 style={{
                   textAlign: "right",
                   fontSize: "15px",
+                  fontWeight: 500,
+                  color: getChangeColor(row.change),
+                }}
+              >
+                {getChangeText(row.change)}
+              </span>
+            </div>
+          ))} */}
+          {section.rows.map((row, index) => (
+            <div
+              key={index}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr",
+                alignItems: "center",
+                padding: "22px 32px",
+                borderBottom:
+                  index !== section.rows.length - 1
+                    ? `1px solid ${colors.cardBorder}`
+                    : "none",
+              }}
+            >
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  fontSize: "15px",
+                }}
+              >
+                {row.metric}
+              </span>
+
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  textAlign: "center",
+                }}
+              >
+                {typeof row.yesterday === "number"
+                  ? row.yesterday.toLocaleString()
+                  : row.yesterday}
+              </span>
+
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  textAlign: "center",
+                }}
+              >
+                {typeof row.beforeYesterday === "number"
+                  ? row.beforeYesterday.toLocaleString()
+                  : row.beforeYesterday}
+              </span>
+
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  textAlign: "center",
+                }}
+              >
+                {typeof row["7d"] === "number"
+                  ? row["7d"].toLocaleString()
+                  : row["7d"]}
+              </span>
+
+              <span
+                style={{
+                  textAlign: "right",
                   fontWeight: 500,
                   color: getChangeColor(row.change),
                 }}
