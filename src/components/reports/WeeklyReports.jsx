@@ -78,10 +78,10 @@ export default function WeeklyReports() {
                 }
             );
 
-            setRows(res.data?.data?.data || []);
+            setRows(res.data?.data || []);
 
             setTotalPages(
-                res.data?.data?.pagination?.totalPages || 1
+                res.data?.pagination?.totalPages || 1
             );
         } catch (error) {
             console.error(error);
@@ -156,7 +156,7 @@ export default function WeeklyReports() {
 
             { key: "rechargeCount", label: "Recharge Count" },
 
-            { key: "firstPack", label: "First Pack" },
+            { key: "lastPack", label: "Last Pack" },
 
             { key: "daysSinceLast", label: "Days Since Last" },
 
