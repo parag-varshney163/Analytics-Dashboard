@@ -6,18 +6,41 @@ import colors from "../../constants/colors";
 export default function TrustMetricsCards({ data }) {
   if (!data) return null;
 
+  // const sections = [
+  //   {
+  //     title: "Flag Metrics",
+  //     rows: data.flagMetrics || [],
+  //   },
+  //   {
+  //     title: "Chat Flags",
+  //     rows: data.chatFlags || [],
+  //   },
+  //   {
+  //     title: "Support Metrics",
+  //     rows: data.supportMetrics || [],
+  //   },
+  // ];
+  const mapRows = (rows = []) =>
+    rows.map((row) => ({
+      metric: row.metric,
+      yesterday: row.yesterday,
+      beforeYesterday: row.beforeYesterday,
+      "7d": row["7d"],
+      change: row.change,
+    }));
+
   const sections = [
     {
       title: "Flag Metrics",
-      rows: data.flagMetrics || [],
+      rows: mapRows(data.flagMetrics),
     },
     {
       title: "Chat Flags",
-      rows: data.chatFlags || [],
+      rows: mapRows(data.chatFlags),
     },
     {
       title: "Support Metrics",
-      rows: data.supportMetrics || [],
+      rows: mapRows(data.supportMetrics),
     },
   ];
 
@@ -75,7 +98,7 @@ export default function TrustMetricsCards({ data }) {
           </div>
 
           {/* Table Header */}
-          <div
+          {/* <div
             style={{
               display: "grid",
               gridTemplateColumns: "2fr 1fr 1fr",
@@ -103,6 +126,23 @@ export default function TrustMetricsCards({ data }) {
             >
               Change
             </span>
+          </div> */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "2fr 1fr 1fr 1fr 0.8fr",
+              padding: "18px 20px",
+              borderBottom: `1px solid ${colors.cardBorder}`,
+              color: "#E4C84D",
+              fontSize: 14,
+              fontWeight: 600,
+            }}
+          >
+            <span>Metric</span>
+            <span style={{ textAlign: "center" }}>Yesterday</span>
+            <span style={{ textAlign: "center" }}>Prev Day</span>
+            <span style={{ textAlign: "center" }}>7D</span>
+            <span style={{ textAlign: "right" }}>Change</span>
           </div>
 
           {/* Rows */}
@@ -111,7 +151,7 @@ export default function TrustMetricsCards({ data }) {
               key={`${section.title}-${index}`}
               style={{
                 display: "grid",
-                gridTemplateColumns: "2fr 1fr 1fr",
+                gridTemplateColumns: "2fr 1fr 1fr 1fr 0.8fr",
                 alignItems: "center",
                 padding: "18px 20px",
                 borderBottom:
@@ -130,7 +170,7 @@ export default function TrustMetricsCards({ data }) {
                 {row.metric}
               </span>
 
-              <span
+              {/* <span
                 style={{
                   color: colors.textPrimary,
                   fontSize: 15,
@@ -141,6 +181,41 @@ export default function TrustMetricsCards({ data }) {
                 {typeof row.value === "number"
                   ? row.value.toLocaleString()
                   : row.value}
+              </span> */}
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  fontSize: 14,
+                  textAlign: "center",
+                }}
+              >
+                {typeof row.yesterday === "number"
+                  ? row.yesterday.toLocaleString()
+                  : row.yesterday}
+              </span>
+
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  fontSize: 14,
+                  textAlign: "center",
+                }}
+              >
+                {typeof row.beforeYesterday === "number"
+                  ? row.beforeYesterday.toLocaleString()
+                  : row.beforeYesterday}
+              </span>
+
+              <span
+                style={{
+                  color: colors.textPrimary,
+                  fontSize: 14,
+                  textAlign: "center",
+                }}
+              >
+                {typeof row["7d"] === "number"
+                  ? row["7d"].toLocaleString()
+                  : row["7d"]}
               </span>
 
               <span

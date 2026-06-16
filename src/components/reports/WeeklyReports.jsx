@@ -47,7 +47,7 @@ const filterMap = {
 export default function WeeklyReports() {
     const [activeTab, setActiveTab] = useState("creator-kundli");
 
-    const [filter, setFilter] = useState("30d");
+    const [filter, setFilter] = useState("7d");
     const [search, setSearch] = useState("");
 
     const [loading, setLoading] = useState(false);
@@ -366,12 +366,42 @@ export default function WeeklyReports() {
     return (
         <div className="space-y-8">
             {/* Date Filter */}
-            <DateFilterBar
+            {/* <DateFilterBar
                 onFilterChange={(value) =>
                     setFilter(filterMap[value] || "30d")
                 }
                 onRefresh={fetchData}
-            />
+            /> */}
+            <div className="flex items-center justify-between mb-4">
+                <div>
+                    <div
+                        className="px-4 py-2 rounded-xl text-sm font-medium w-fit"
+                        style={{
+                            background: colors.cardBg,
+                            border: `1px solid ${colors.cardBorder}`,
+                            color: colors.accent,
+                        }}
+                    >
+                        Last 7 Days
+                    </div>
+
+                    <p
+                        className="mt-2 text-sm"
+                        style={{
+                            color: colors.textSecondary,
+                        }}
+                    >
+                        Disclaimer: Report data is fixed to the last 7 days and cannot be modified.
+                    </p>
+                </div>
+
+                <Button
+                    onClick={fetchData}
+                    className="h-10 px-4"
+                >
+                    Refresh
+                </Button>
+            </div>
 
             {/* Header */}
             <div className="pt-2">
