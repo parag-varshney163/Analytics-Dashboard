@@ -6,6 +6,7 @@ import UpdatePassword from "./pages/UpdatePassword";
 import ResetPassword from "./pages/ResetPassword";
 import Notifications from "./pages/Notifications";
 import Unauthorized from "./pages/Unauthorized";
+import Transactions from "./pages/Transactions";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
@@ -104,6 +105,14 @@ function App() {
           element={
             <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
               <Reports/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.TRANSACTIONS}
+          element={
+            <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
+              <Transactions/>
             </ProtectedRoute>
           }
         />
