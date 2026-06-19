@@ -58,8 +58,9 @@ export default function TrustSupportPerformance({ data }) {
         style={{
           padding: 28,
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: "repeat(3, 1fr)",
           gap: 20,
+
         }}
       >
         {/* Messages Received */}
@@ -192,7 +193,7 @@ export default function TrustSupportPerformance({ data }) {
         </div>
 
         {/* CSAT Score */}
-        <div
+        {/* <div
           style={{
             border: `1px solid ${colors.cardBorder}`,
             borderRadius: 20,
@@ -242,7 +243,7 @@ export default function TrustSupportPerformance({ data }) {
               />
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
