@@ -280,7 +280,7 @@ const Transactions = () => {
                         totalPages={userPagination.totalPages}
                         onPageChange={setUserPage}
                     />
-                    <AutoFlagReasonCodesTable />
+                    {/* <AutoFlagReasonCodesTable /> */}
                 </div>
             </motion.main>
         </div>

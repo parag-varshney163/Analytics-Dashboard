@@ -10,12 +10,12 @@ const TransactionCreatorTable = ({ data = [],
   totalPages = 1,
   onPageChange, }) => {
   const columns = [
-    {
-      key: "transactionId",
-      label: "transactionId",
-      width: "2fr",
-      align: "left",
-    },
+    // {
+    //   key: "transactionId",
+    //   label: "transactionId",
+    //   width: "2fr",
+    //   align: "left",
+    // },
     {
       key: "name",
       label: "name",
@@ -64,11 +64,11 @@ const TransactionCreatorTable = ({ data = [],
       label: "streakEarnings",
       width: "1fr",
     },
-    {
-      key: "totalExpected",
-      label: "totalExpected",
-      width: "1fr",
-    },
+    // {
+    //   key: "totalExpected",
+    //   label: "totalExpected",
+    //   width: "1fr",
+    // },
     {
       key: "actualCredited",
       label: "actualCredited",
@@ -85,28 +85,28 @@ const TransactionCreatorTable = ({ data = [],
       width: "1fr",
       render: (value) => `${value}%`,
     },
-    {
-      key: "flagReason",
-      label: "flagReason",
-      width: "1fr",
-      render: (value) => value || "-",
-    },
+    // {
+    //   key: "flagReason",
+    //   label: "flagReason",
+    //   width: "1fr",
+    //   render: (value) => value || "-",
+    // },
     {
       key: "status",
       label: "status",
       width: "1fr",
     },
-    {
-      key: "reviewStatus",
-      label: "reviewStatus",
-      width: "1fr",
-    },
-    {
-      key: "reviewNotes",
-      label: "reviewNotes",
-      width: "1fr",
-      render: (value) => value || "-",
-    },
+    // {
+    //   key: "reviewStatus",
+    //   label: "reviewStatus",
+    //   width: "1fr",
+    // },
+    // {
+    //   key: "reviewNotes",
+    //   label: "reviewNotes",
+    //   width: "1fr",
+    //   render: (value) => value || "-",
+    // },
     {
       key: "date",
       label: "date",

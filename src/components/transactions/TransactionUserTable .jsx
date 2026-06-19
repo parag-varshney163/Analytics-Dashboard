@@ -12,12 +12,12 @@ const TransactionUserTable = ({
   onPageChange,
 }) => {
   const columns = [
-    {
-      key: "transactionId",
-      label: "transactionId",
-      width: "2fr",
-      align: "left",
-    },
+    // {
+    //   key: "transactionId",
+    //   label: "transactionId",
+    //   width: "2fr",
+    //   align: "left",
+    // },
     {
       key: "name",
       label: "name",
@@ -60,54 +60,54 @@ const TransactionUserTable = ({
       label: "actualCoinsCredited",
       width: "1.2fr",
     },
-    {
-      key: "variance",
-      label: "variance",
-      width: "1fr",
-      render: (value) => (
-        <span
-          style={{
-            color:
-              value > 0
-                ? colors.success
-                : value < 0
-                ? colors.danger
-                : colors.textPrimary,
-            fontWeight: 600,
-          }}
-        >
-          {value > 0 ? `+${value}` : value}
-        </span>
-      ),
-    },
+    // {
+    //   key: "variance",
+    //   label: "variance",
+    //   width: "1fr",
+    //   render: (value) => (
+    //     <span
+    //       style={{
+    //         color:
+    //           value > 0
+    //             ? colors.success
+    //             : value < 0
+    //             ? colors.danger
+    //             : colors.textPrimary,
+    //         fontWeight: 600,
+    //       }}
+    //     >
+    //       {value > 0 ? `+${value}` : value}
+    //     </span>
+    //   ),
+    // },
     {
       key: "variancePercentage",
       label: "variancePercentage",
       width: "1.2fr",
       render: (value) => `${value || 0}%`,
     },
-    {
-      key: "flagReason",
-      label: "flagReason",
-      width: "1fr",
-      render: (value) => value || "-",
-    },
+    // {
+    //   key: "flagReason",
+    //   label: "flagReason",
+    //   width: "1fr",
+    //   render: (value) => value || "-",
+    // },
     {
       key: "status",
       label: "status",
       width: "1fr",
     },
-    {
-      key: "reviewStatus",
-      label: "reviewStatus",
-      width: "1fr",
-    },
-    {
-      key: "reviewNotes",
-      label: "reviewNotes",
-      width: "1fr",
-      render: (value) => value || "-",
-    },
+    // {
+    //   key: "reviewStatus",
+    //   label: "reviewStatus",
+    //   width: "1fr",
+    // },
+    // {
+    //   key: "reviewNotes",
+    //   label: "reviewNotes",
+    //   width: "1fr",
+    //   render: (value) => value || "-",
+    // },
     {
       key: "date",
       label: "date",

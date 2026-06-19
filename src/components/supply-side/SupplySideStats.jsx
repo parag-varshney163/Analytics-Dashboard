@@ -67,85 +67,152 @@ export default function SupplySideStats({data,loading}) {
   const current = data?.yesterday || {};
 const previous = data?.beforeYesterday || {};
 
+// const stats = [
+//   {
+//     title: "Creators Online",
+//     value: current.creatorsOnline || 0,
+//     icon: Users,
+//     change: `${calculateChange(
+//       current.creatorsOnline,
+//       previous.creatorsOnline
+//     )}%`,
+//     previousValue: previous.creatorsOnline || 0,
+//     positive:
+//       current.creatorsOnline >= previous.creatorsOnline,
+//   },
+//   {
+//     title: "Connected Calls",
+//     value: current.connectedCalls || 0,
+//     icon: Phone,
+//     change: `${calculateChange(
+//       current.connectedCalls,
+//       previous.connectedCalls
+//     )}%`,
+//     previousValue: previous.connectedCalls || 0,
+//     positive:
+//       current.connectedCalls >= previous.connectedCalls,
+//   },
+//   {
+//     title: "Talk Time",
+//     value: `${Math.floor(
+//       (current.talkTimeMins || 0) / 60
+//     )}h ${(current.talkTimeMins || 0) % 60}m`,
+//     icon: Clock3,
+//     change: `${calculateChange(
+//       current.talkTimeMins,
+//       previous.talkTimeMins
+//     )}%`,
+//     previousValue: `${Math.floor(
+//       (previous.talkTimeMins || 0) / 60
+//     )}h ${(previous.talkTimeMins || 0) % 60}m`,
+//     positive:
+//       current.talkTimeMins >= previous.talkTimeMins,
+//   },
+//   {
+//     title: "Call Accept %",
+//     value: `${current.callAcceptPct || 0}%`,
+//     icon: PhoneCall,
+//     change: `${calculateChange(
+//       current.callAcceptPct,
+//       previous.callAcceptPct
+//     )}%`,
+//     previousValue: `${previous.callAcceptPct || 0}%`,
+//     positive:
+//       current.callAcceptPct >= previous.callAcceptPct,
+//   },
+//   {
+//     title: "Onboarded",
+//     value: current.onboarded || 0,
+//     icon: UserPlus,
+//     change: `${calculateChange(
+//       current.onboarded,
+//       previous.onboarded
+//     )}%`,
+//     previousValue: previous.onboarded || 0,
+//     positive:
+//       current.onboarded >= previous.onboarded,
+//   },
+//   {
+//     title: "Activation %",
+//     value: `${current.activationPct || 0}%`,
+//     icon: TrendingUp,
+//     change: `${calculateChange(
+//       current.activationPct,
+//       previous.activationPct
+//     )}%`,
+//     previousValue: `${previous.activationPct || 0}%`,
+//     positive:
+//       current.activationPct >= previous.activationPct,
+//   },
+// ];
 const stats = [
   {
     title: "Creators Online",
-    value: current.creatorsOnline || 0,
+    value: data?.creatorsOnline?.yesterday ?? 0,
     icon: Users,
-    change: `${calculateChange(
-      current.creatorsOnline,
-      previous.creatorsOnline
-    )}%`,
-    previousValue: previous.creatorsOnline || 0,
+    change: data?.creatorsOnline?.change?.text ?? "0%",
+    previousValue: data?.creatorsOnline?.beforeYesterday ?? 0,
     positive:
-      current.creatorsOnline >= previous.creatorsOnline,
+      data?.creatorsOnline?.change?.direction === "up",
   },
+
   {
     title: "Connected Calls",
-    value: current.connectedCalls || 0,
+    value: data?.totalConnectedCalls?.yesterday ?? 0,
     icon: Phone,
-    change: `${calculateChange(
-      current.connectedCalls,
-      previous.connectedCalls
-    )}%`,
-    previousValue: previous.connectedCalls || 0,
+    change:
+      data?.totalConnectedCalls?.change?.text ?? "0%",
+    previousValue:
+      data?.totalConnectedCalls?.beforeYesterday ?? 0,
     positive:
-      current.connectedCalls >= previous.connectedCalls,
+      data?.totalConnectedCalls?.change?.direction === "up",
   },
+
   {
     title: "Talk Time",
-    value: `${Math.floor(
-      (current.talkTimeMins || 0) / 60
-    )}h ${(current.talkTimeMins || 0) % 60}m`,
+    value: `${data?.totalTalkTimeHours?.yesterday ?? 0}h`,
     icon: Clock3,
-    change: `${calculateChange(
-      current.talkTimeMins,
-      previous.talkTimeMins
-    )}%`,
-    previousValue: `${Math.floor(
-      (previous.talkTimeMins || 0) / 60
-    )}h ${(previous.talkTimeMins || 0) % 60}m`,
+    change:
+      data?.totalTalkTimeHours?.change?.text ?? "0%",
+    previousValue: `${data?.totalTalkTimeHours?.beforeYesterday ?? 0}h`,
     positive:
-      current.talkTimeMins >= previous.talkTimeMins,
+      data?.totalTalkTimeHours?.change?.direction === "up",
   },
+
   {
     title: "Call Accept %",
-    value: `${current.callAcceptPct || 0}%`,
+    value: `${data?.callAcceptancePct?.yesterday ?? 0}%`,
     icon: PhoneCall,
-    change: `${calculateChange(
-      current.callAcceptPct,
-      previous.callAcceptPct
-    )}%`,
-    previousValue: `${previous.callAcceptPct || 0}%`,
+    change:
+      data?.callAcceptancePct?.change?.text ?? "0%",
+    previousValue: `${data?.callAcceptancePct?.beforeYesterday ?? 0}%`,
     positive:
-      current.callAcceptPct >= previous.callAcceptPct,
+      data?.callAcceptancePct?.change?.direction === "up",
   },
+
   {
     title: "Onboarded",
-    value: current.onboarded || 0,
+    value: data?.onboarded?.yesterday ?? 0,
     icon: UserPlus,
-    change: `${calculateChange(
-      current.onboarded,
-      previous.onboarded
-    )}%`,
-    previousValue: previous.onboarded || 0,
+    change: data?.onboarded?.change?.text ?? "0%",
+    previousValue:
+      data?.onboarded?.beforeYesterday ?? 0,
     positive:
-      current.onboarded >= previous.onboarded,
+      data?.onboarded?.change?.direction === "up",
   },
+
   {
     title: "Activation %",
-    value: `${current.activationPct || 0}%`,
+    value: `${data?.activationPct?.yesterday ?? 0}%`,
     icon: TrendingUp,
-    change: `${calculateChange(
-      current.activationPct,
-      previous.activationPct
-    )}%`,
-    previousValue: `${previous.activationPct || 0}%`,
+    change:
+      data?.activationPct?.change?.text ?? "0%",
+    previousValue: `${data?.activationPct?.beforeYesterday ?? 0}%`,
     positive:
-      current.activationPct >= previous.activationPct,
+      data?.activationPct?.change?.direction === "up",
   },
-];
-  return (
+];  
+return (
     <div>
       {/* Header */}
       <div

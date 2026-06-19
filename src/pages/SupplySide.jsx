@@ -24,6 +24,7 @@ const SupplySide = () => {
 
   const [filter, setFilter] = useState("yesterday");
 
+  const [statsData, setStatsData] = useState(null);
   const [kpiData, setKpiData] = useState(null);
   const [hourlyData, setHourlyData] = useState(null);
   const [distributionData, setDistributionData] = useState(null);
@@ -34,8 +35,11 @@ const SupplySide = () => {
     try {
       setLoading(true);
 
-      const [kpiRes, hourlyRes, distributionRes] =
+      const [cardsRes,kpiRes, hourlyRes, distributionRes] =
         await Promise.all([
+          axiosInstance.get("/api/v1/supply/dashboard-cards", {
+            params: { filter: selectedFilter },
+          }),
           axiosInstance.get("/api/v1/supply/kpi", {
             params: { filter: selectedFilter },
           }),
@@ -48,7 +52,7 @@ const SupplySide = () => {
             params: { filter: selectedFilter },
           }),
         ]);
-
+        setStatsData(cardsRes.data.data);
       setKpiData(kpiRes.data.data);
       setHourlyData(hourlyRes.data.data);
       setDistributionData(distributionRes.data.data);
@@ -92,7 +96,7 @@ const SupplySide = () => {
           />
 
           <SupplySideStats
-            data={kpiData}
+            data={statsData}
             loading={loading}
           />
 

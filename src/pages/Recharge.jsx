@@ -56,7 +56,7 @@ const Recharge = () => {
                     // axiosInstance.get("/api/v1/recharge/hourly-activity", {
                     //     params: { filter: selectedFilter },
                     // }),
-                     axiosInstance.get("/api/v1/recharge/pack-distribution", {
+                     axiosInstance.get("/api/v1/demand/pack-distribution", {
                     params: { filter: selectedFilter },
                 }),
                 ]);
@@ -113,7 +113,9 @@ const Recharge = () => {
                     />
                     <RechargeCharts data={rechargeChartData} />
                     {/* <TimeOfDayRechargeChart data={hourlyRechargeData} /> */}
-                    <RechargeMetricsTable data={packDistributionData}/>
+                    {/* <RechargeMetricsTable data={packDistributionData}/> */}
+                    <DemandSideMetricsTable data={packDistributionData} />
+
 
                 </div>
             </motion.main>

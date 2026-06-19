@@ -145,7 +145,7 @@ export default function WeeklyReports() {
 
             {
                 key: "rechargeDate",
-                label: "Recharge Date",
+                label: "Last Recharge Date",
                 render: (value) =>
                     value
                         ? new Date(value).toLocaleDateString("en-IN")

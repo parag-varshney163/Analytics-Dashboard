@@ -65,7 +65,7 @@ export default function DemandSideCharts({ hourlyData = [], distributionData = {
   //   })) || [];
   const rechargeColors = [
     "#DC2626", // Dark Red
-    "#F87171", // Light Red
+    "#3B82F6", // Blue
     colors.accent, // Gold
   ];
 

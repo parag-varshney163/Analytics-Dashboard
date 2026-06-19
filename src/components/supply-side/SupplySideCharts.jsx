@@ -65,11 +65,11 @@ export default function SupplySideCharts({ hourlyData, distributionData }) {
   //   "#F3E4A3",
   // ];
   const durationColors = [
-    "#EF4444", // Red
-    "#F97316", // Orange
-    "#F59E0B", // Amber
-    "#FCD34D", // Light Gold
-  ];
+  "#EF4444", // Red
+  "#FACC15", // Yellow
+  "#3B82F6", // Blue
+  "#22C55E", // Green
+];
 
   const durationData =
     distributionData?.callDurations?.map((item, index) => ({
@@ -84,10 +84,11 @@ export default function SupplySideCharts({ hourlyData, distributionData }) {
   // ];
 
   const earningColors = [
-    "#DC2626", // Dark Red
-    "#F87171", // Soft Red
-    "#FBBF24", // Gold
-  ];
+  "#EF4444", // Red
+  "#3B82F6", // Blue
+  "#FACC15", // Yellow
+  
+];
 
   const earningsData =
     distributionData?.earnings?.map((item, index) => ({
