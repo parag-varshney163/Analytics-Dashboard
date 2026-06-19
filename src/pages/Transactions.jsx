@@ -121,7 +121,9 @@ const filterMap = {
 const Transactions = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [filter, setFilter] = useState("yesterday");
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
+    const [creatorLoading, setCreatorLoading] = useState(false);
+    const [userLoading, setUserLoading] = useState(false);
 
     // Creator Audit
     const [transactions, setTransactions] = useState([]);
@@ -151,6 +153,7 @@ const Transactions = () => {
         selectedPage = page
     ) => {
         try {
+            setCreatorLoading(true);
             const response = await axiosInstance.get(
                 "/api/v1/transactions/audit/creator",
                 {
@@ -176,6 +179,8 @@ const Transactions = () => {
             );
         } catch (error) {
             console.error("Creator TIM API Error:", error);
+        } finally {
+            setCreatorLoading(false);
         }
     };
 
@@ -185,6 +190,7 @@ const Transactions = () => {
         selectedPage = userPage
     ) => {
         try {
+            setUserLoading(true);
             const response = await axiosInstance.get(
                 "/api/v1/transactions/audit/user",
                 {
@@ -210,27 +216,44 @@ const Transactions = () => {
             );
         } catch (error) {
             console.error("User TIM API Error:", error);
-        }
-    };
-
-    const fetchAllData = async () => {
-        try {
-            setLoading(true);
-
-            await Promise.all([
-                fetchTransactions(filter, page),
-                fetchUserTransactions(filter, userPage),
-            ]);
-        } catch (error) {
-            console.error(error);
         } finally {
-            setLoading(false);
+            setUserLoading(false);
         }
     };
 
+    // const fetchAllData = async () => {
+    //     try {
+    //         setLoading(true);
+
+    //         await Promise.all([
+    //             fetchTransactions(filter, page),
+    //             fetchUserTransactions(filter, userPage),
+    //         ]);
+    //     } catch (error) {
+    //         console.error(error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+    const fetchAllData = async () => {
+        await Promise.all([
+            fetchTransactions(filter, page),
+            fetchUserTransactions(filter, userPage),
+        ]);
+    };
+
+    // useEffect(() => {
+    //     fetchAllData();
+    // }, [filter, page, userPage]);
+    // Creator table
     useEffect(() => {
-        fetchAllData();
-    }, [filter, page, userPage]);
+        fetchTransactions(filter, page);
+    }, [filter, page]);
+
+    // User table
+    useEffect(() => {
+        fetchUserTransactions(filter, userPage);
+    }, [filter, userPage]);
 
     return (
         <div
@@ -267,7 +290,7 @@ const Transactions = () => {
 
                     <TransactionCreatorTable
                         data={transactions}
-                        loading={loading}
+                        loading={creatorLoading}
                         page={pagination.page}
                         totalPages={pagination.totalPages}
                         onPageChange={setPage}
@@ -275,7 +298,7 @@ const Transactions = () => {
 
                     <TransactionUserTable
                         data={userTransactions}
-                        loading={loading}
+                        loading={userLoading}
                         page={userPagination.page}
                         totalPages={userPagination.totalPages}
                         onPageChange={setUserPage}
