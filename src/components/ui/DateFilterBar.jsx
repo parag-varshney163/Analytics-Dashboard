@@ -84,7 +84,7 @@ export default function DateFilterBar({
             fontSize: "14px",
           }}
         >
-          Last updated: 02:03 PM
+          
         </span>
 
         <Button

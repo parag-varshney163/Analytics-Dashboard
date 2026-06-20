@@ -10,111 +10,98 @@ const TransactionCreatorTable = ({ data = [],
   totalPages = 1,
   onPageChange, }) => {
   const columns = [
-    // {
-    //   key: "transactionId",
-    //   label: "transactionId",
-    //   width: "2fr",
-    //   align: "left",
-    // },
     {
       key: "name",
-      label: "name",
+      label: "Creator Name",
       width: "1.2fr",
-      align: "left",
+      align: "center",
     },
     {
       key: "userId",
-      label: "userId",
-      width: "2fr",
-      align: "left",
+      label: "Creator ID",
+      width: "1fr",
+      align: "center",
     },
     {
       key: "level",
-      label: "level",
+      label: "Level",
       width: "0.7fr",
+      align: "center",
     },
     {
       key: "callDurationMins",
-      label: "callDurationMins",
+      label: "Call Duration",
       width: "1fr",
       render: (value) => `${value || 0} min`,
     },
     {
       key: "expectedCallEarnings",
-      label: "expectedCallEarnings",
-      width: "1fr",
+      label: "Expected Call Earnings",
+      width: "1.3fr",
     },
     {
       key: "giftEarnings",
-      label: "giftEarnings",
+      label: "Gift Earnings",
       width: "1fr",
     },
     {
       key: "chatEarnings",
-      label: "chatEarnings",
+      label: "Chat Earnings",
       width: "1fr",
     },
     {
       key: "gameEarnings",
-      label: "gameEarnings",
+      label: "Game Earnings",
       width: "1fr",
     },
     {
       key: "streakEarnings",
-      label: "streakEarnings",
+      label: "Streak Earnings",
       width: "1fr",
     },
-    // {
-    //   key: "totalExpected",
-    //   label: "totalExpected",
-    //   width: "1fr",
-    // },
     {
       key: "actualCredited",
-      label: "actualCredited",
-      width: "1fr",
+      label: "Actual Credited",
+      width: "1.2fr",
     },
     {
       key: "variance",
-      label: "variance",
+      label: "Variance Amount",
       width: "1fr",
     },
     {
       key: "variancePercentage",
-      label: "variancePercentage",
+      label: "Variance %",
       width: "1fr",
-      render: (value) => `${value}%`,
+      render: (value) => `${value ?? 0}%`,
     },
-    // {
-    //   key: "flagReason",
-    //   label: "flagReason",
-    //   width: "1fr",
-    //   render: (value) => value || "-",
-    // },
     {
       key: "status",
-      label: "status",
-      width: "1fr",
+      label: "Transaction Status",
+      width: "1.2fr",
+      align: "center",
+      render: (value) => {
+        const isFlagged = value?.toLowerCase() === "flagged";
+
+        return (
+          <span
+            className="px-3 py-1 rounded-md text-xs font-medium capitalize"
+            style={{
+              background: isFlagged ? "#7F1D1D" : "#1E3A8A",
+              color: "#FFFFFF",
+            }}
+          >
+            {value || "-"}
+          </span>
+        );
+      },
     },
-    // {
-    //   key: "reviewStatus",
-    //   label: "reviewStatus",
-    //   width: "1fr",
-    // },
-    // {
-    //   key: "reviewNotes",
-    //   label: "reviewNotes",
-    //   width: "1fr",
-    //   render: (value) => value || "-",
-    // },
     {
       key: "date",
-      label: "date",
+      label: "Transaction Date",
       width: "1.5fr",
       render: (value) =>
-        value
-          ? new Date(value).toLocaleString("en-IN")
-          : "-",
+        value ? new Date(value).toLocaleString("en-IN") : "-",
     },
   ];
   const tableData = data;

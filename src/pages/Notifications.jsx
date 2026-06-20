@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 
 import NotificationHighlightsCards from "../components/notification/NotificationHighlightsCards";
+import NotificationTemplateTable from "../components/notification/NotificationTemplateTable";
 import NotificationMetricsCards from "../components/notification/NotificationMetricsCards";
 import DemandSideMetricsCards from "../components/demand-side/DemandSideMetricsCards ";
 import SupplySideMetricsTable from "../components/supply-side/SupplySideMetricsTable";
@@ -60,7 +61,7 @@ const Notifications = () => {
                     axiosInstance.get("/api/v1/notifications/insights", {
                         params: { filter: selectedFilter },
                     }),
-                     axiosInstance.get("/api/v1/notifications/highlights", {
+                     axiosInstance.get("/api/v1/notifications/temp", {
                     params: { filter: selectedFilter },
                 }),
                 ]);
@@ -120,7 +121,8 @@ const Notifications = () => {
                     <NotificationMetricsCards data={packDistributionData}/>
                     {/* <TimeOfDayRechargeChart data={hourlyRechargeData} />
                     <RechargeMetricsTable data={packDistributionData}/> */}
-                    <NotificationHighlightsCards data={hourlyRechargeData}/>
+                    {/* <NotificationHighlightsCards data={hourlyRechargeData}/> */}
+                    <NotificationTemplateTable data={hourlyRechargeData}/>
 
                 </div>
             </motion.main>

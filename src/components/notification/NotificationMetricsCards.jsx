@@ -28,8 +28,8 @@ export default function NotificationMetricsCards({ data }) {
 };
 
 const tableData = [
-  ...(data?.performanceMetrics || []).map((row, index) => ({
-    category: index === 0 ? "Performance Metrics" : "",
+  ...(data?.performanceMetrics || []).map((row) => ({
+    category: "Performance Metrics",
     metric: row.metric,
     yesterday: row.yesterday,
     beforeYesterday: row.beforeYesterday,
@@ -39,8 +39,8 @@ const tableData = [
     hidden: row.change?.hide,
   })),
 
-  ...(data?.typeBreakdown || []).map((row, index) => ({
-    category: index === 0 ? "Type Breakdown" : "",
+  ...(data?.typeBreakdown || []).map((row) => ({
+    category: "Type Breakdown",
     metric: row.metric,
     yesterday: row.yesterday,
     beforeYesterday: row.beforeYesterday,
@@ -60,13 +60,13 @@ const tableData = [
   {
     key: "category",
     label: "Category",
-    width: "1.5fr",
+    width: "1fr",
     align: "left",
   },
   {
     key: "metric",
     label: "Metric",
-    width: "2fr",
+    width: "1fr",
     align: "left",
   },
   {

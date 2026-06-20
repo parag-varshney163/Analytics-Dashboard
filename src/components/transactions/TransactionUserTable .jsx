@@ -11,113 +11,89 @@ const TransactionUserTable = ({
   totalPages = 1,
   onPageChange,
 }) => {
-  const columns = [
-    // {
-    //   key: "transactionId",
-    //   label: "transactionId",
-    //   width: "2fr",
-    //   align: "left",
-    // },
-    {
-      key: "name",
-      label: "name",
-      width: "1.2fr",
-      align: "left",
+const columns = [
+  {
+    key: "name",
+    label: "User Name",
+    width: "1.2fr",
+    align: "center",
+  },
+  {
+    key: "userId",
+    label: "User ID",
+    width: "1fr",
+    align: "center",
+  },
+  {
+    key: "creditType",
+    label: "Credit Type",
+    width: "1.5fr",
+    render: (value) => value?.replaceAll("_", " ") || "-",
+  },
+  {
+    key: "packPurchased",
+    label: "Purchased Pack",
+    width: "1fr",
+  },
+  {
+    key: "packCoinsExpected",
+    label: "Expected Pack Coins",
+    width: "1.2fr",
+    render: (value) => Number(value || 0).toLocaleString("en-IN"),
+  },
+  {
+    key: "streakCredits",
+    label: "Streak Credits",
+    width: "1fr",
+    render: (value) => Number(value || 0).toLocaleString("en-IN"),
+  },
+  {
+    key: "expectedCoins",
+    label: "Expected Coins",
+    width: "1fr",
+    render: (value) => Number(value || 0).toLocaleString("en-IN"),
+  },
+  {
+    key: "actualCoinsCredited",
+    label: "Actual Coins Credited",
+    width: "1.2fr",
+    render: (value) => Number(value || 0).toLocaleString("en-IN"),
+  },
+  {
+    key: "variancePercentage",
+    label: "Variance %",
+    width: "1.2fr",
+    render: (value) => `${value ?? 0}%`,
+  },
+  {
+    key: "status",
+    label: "Transaction Status",
+    width: "1.2fr",
+    align: "center",
+    render: (value) => {
+      const isFlagged = value?.toLowerCase() === "flagged";
+
+      return (
+        <span
+          className="px-3 py-1 rounded-md text-xs font-medium capitalize"
+          style={{
+            background: isFlagged ? "#7F1D1D" : "#1E3A8A",
+            color: "#FFFFFF",
+          }}
+        >
+          {value || "-"}
+        </span>
+      );
     },
-    {
-      key: "userId",
-      label: "userId",
-      width: "2fr",
-      align: "left",
-    },
-    {
-      key: "creditType",
-      label: "creditType",
-      width: "1.5fr",
-    },
-    {
-      key: "packPurchased",
-      label: "packPurchased",
-      width: "1fr",
-    },
-    {
-      key: "packCoinsExpected",
-      label: "packCoinsExpected",
-      width: "1.2fr",
-    },
-    {
-      key: "streakCredits",
-      label: "streakCredits",
-      width: "1fr",
-    },
-    {
-      key: "expectedCoins",
-      label: "expectedCoins",
-      width: "1fr",
-    },
-    {
-      key: "actualCoinsCredited",
-      label: "actualCoinsCredited",
-      width: "1.2fr",
-    },
-    // {
-    //   key: "variance",
-    //   label: "variance",
-    //   width: "1fr",
-    //   render: (value) => (
-    //     <span
-    //       style={{
-    //         color:
-    //           value > 0
-    //             ? colors.success
-    //             : value < 0
-    //             ? colors.danger
-    //             : colors.textPrimary,
-    //         fontWeight: 600,
-    //       }}
-    //     >
-    //       {value > 0 ? `+${value}` : value}
-    //     </span>
-    //   ),
-    // },
-    {
-      key: "variancePercentage",
-      label: "variancePercentage",
-      width: "1.2fr",
-      render: (value) => `${value || 0}%`,
-    },
-    // {
-    //   key: "flagReason",
-    //   label: "flagReason",
-    //   width: "1fr",
-    //   render: (value) => value || "-",
-    // },
-    {
-      key: "status",
-      label: "status",
-      width: "1fr",
-    },
-    // {
-    //   key: "reviewStatus",
-    //   label: "reviewStatus",
-    //   width: "1fr",
-    // },
-    // {
-    //   key: "reviewNotes",
-    //   label: "reviewNotes",
-    //   width: "1fr",
-    //   render: (value) => value || "-",
-    // },
-    {
-      key: "date",
-      label: "date",
-      width: "1.8fr",
-      render: (value) =>
-        value
-          ? new Date(value).toLocaleString("en-IN")
-          : "-",
-    },
-  ];
+  },
+  {
+    key: "date",
+    label: "Transaction Date",
+    width: "1.8fr",
+    render: (value) =>
+      value ? new Date(value).toLocaleString("en-IN") : "-",
+  },
+];
 
   return (
     <div style={{ marginTop: 28 }}>

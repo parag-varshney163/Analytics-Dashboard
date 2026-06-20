@@ -97,6 +97,7 @@
 // };
 // export default Transactions;
 import { useEffect, useState } from "react";
+import { User, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -107,6 +108,7 @@ import TransactionKPIStats from "../components/transactions/TransactionKPIStats"
 import DateFilterBar from "../components/ui/DateFilterBar";
 import axiosInstance from "../api/axiosInstance";
 import Sidebar from "../components/ui/Sidebar";
+import Button from "../components/ui/Button";
 import colors from "../constants/colors";
 
 
@@ -117,6 +119,18 @@ const filterMap = {
     "Last 30 Days": "30d",
     "This Month": "30d",
 };
+const transactionTabs = [
+    {
+        key: "creator",
+        label: "Creator Transactions",
+        icon: Users,
+    },
+    {
+        key: "user",
+        label: "User Transactions",
+        icon: User,
+    },
+];
 
 const Transactions = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -146,6 +160,7 @@ const Transactions = () => {
         limit: 10,
         totalPages: 1,
     });
+    const [activeTab, setActiveTab] = useState("creator");
 
     // Creator Transactions API
     const fetchTransactions = async (
@@ -285,24 +300,45 @@ const Transactions = () => {
                     }}
                     onRefresh={fetchAllData}
                 />
+                <div className="flex flex-wrap gap-4" style={{ marginTop: "22px" }}>
+                    {transactionTabs.map((tab) => {
+                        const Icon = tab.icon;
+
+                        return (
+                            <Button
+                                key={tab.key}
+                                onClick={() => setActiveTab(tab.key)}
+                                variant={activeTab === tab.key ? "primary" : "secondary"}
+                                className="h-14 min-w-[220px]"
+                            >
+                                <Icon size={18} />
+                                {tab.label}
+                            </Button>
+                        );
+                    })}
+                </div>
                 <div className="space-y-6">
                     <TransactionKPIStats filter={filter} />
 
-                    <TransactionCreatorTable
-                        data={transactions}
-                        loading={creatorLoading}
-                        page={pagination.page}
-                        totalPages={pagination.totalPages}
-                        onPageChange={setPage}
-                    />
+                    {activeTab === "creator" && (
+                        <TransactionCreatorTable
+                            data={transactions}
+                            loading={creatorLoading}
+                            page={pagination.page}
+                            totalPages={pagination.totalPages}
+                            onPageChange={setPage}
+                        />
+                    )}
 
-                    <TransactionUserTable
-                        data={userTransactions}
-                        loading={userLoading}
-                        page={userPagination.page}
-                        totalPages={userPagination.totalPages}
-                        onPageChange={setUserPage}
-                    />
+                    {activeTab === "user" && (
+                        <TransactionUserTable
+                            data={userTransactions}
+                            loading={userLoading}
+                            page={userPagination.page}
+                            totalPages={userPagination.totalPages}
+                            onPageChange={setUserPage}
+                        />
+                    )}
                     {/* <AutoFlagReasonCodesTable /> */}
                 </div>
             </motion.main>

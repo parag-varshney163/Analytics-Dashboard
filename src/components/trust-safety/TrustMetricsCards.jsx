@@ -58,23 +58,23 @@ export default function TrustMetricsCards({ data }) {
       ? "#6EF7C8"
       : "#FF6B6B";
   };
-  const tableData = [
-  ...(mapRows(data.flagMetrics) || []).map((row, index) => ({
-    category: index === 0 ? "Flag Metrics" : "",
+ const tableData = [
+  ...(mapRows(data.flagMetrics) || []).map((row) => ({
+    category: "Flag Metrics",
     ...row,
     changeText: getChangeText(row.change),
     positive: row.change?.direction === "up",
   })),
 
-  ...(mapRows(data.chatFlags) || []).map((row, index) => ({
-    category: index === 0 ? "Chat Flags" : "",
+  ...(mapRows(data.chatFlags) || []).map((row) => ({
+    category: "Chat Flags",
     ...row,
     changeText: getChangeText(row.change),
     positive: row.change?.direction === "up",
   })),
 
-  ...(mapRows(data.supportMetrics) || []).map((row, index) => ({
-    category: index === 0 ? "Support Metrics" : "",
+  ...(mapRows(data.supportMetrics) || []).map((row) => ({
+    category: "Support Metrics",
     ...row,
     changeText: getChangeText(row.change),
     positive: row.change?.direction === "up",
@@ -84,13 +84,13 @@ const columns = [
   {
     key: "category",
     label: "Category",
-    width: "1.4fr",
-    align: "left",
+    width: "1fr",
+    align: "center",
   },
   {
     key: "metric",
     label: "Metric",
-    width: "2fr",
+    width: "1fr",
     align: "left",
   },
   {

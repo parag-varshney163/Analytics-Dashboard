@@ -68,7 +68,11 @@ export default function DemandSideCharts({ hourlyData = [], distributionData = {
     "#3B82F6", // Blue
     colors.accent, // Gold
   ];
-
+  const retentionColors = [
+    "#DC2626",      // D1 - Red
+    "#3B82F6",      // D3 - Blue
+    colors.accent,  // D7 - Gold
+  ];
   const rechargeData =
     distributionData?.rechargeByType?.map((item, index) => ({
       name: item.type
@@ -434,11 +438,23 @@ export default function DemandSideCharts({ hourlyData = [], distributionData = {
 
               <Tooltip />
 
-              <Bar
+              {/* <Bar
                 dataKey="value"
                 radius={[6, 6, 0, 0]}
                 fill="#DC2626"
-              />
+              /> */}
+              <Bar
+                dataKey="value"
+                radius={[6, 6, 0, 0]}
+                barSize={44}
+              >
+                {retentionData.map((item, index) => (
+                  <Cell
+                    key={item.cohort}
+                    fill={retentionColors[index % retentionColors.length]}
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>

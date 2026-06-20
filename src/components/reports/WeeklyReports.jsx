@@ -251,14 +251,14 @@ export default function WeeklyReports() {
                 key: "name",
                 label: "Creator",
             },
-            {
-                key: "bank",
-                label: "Bank",
-            },
-            {
-                key: "period",
-                label: "Period",
-            },
+            // {
+            //     key: "bank",
+            //     label: "Bank",
+            // },
+            // {
+            //     key: "period",
+            //     label: "Period",
+            // },
             {
                 key: "calls",
                 label: "Calls",

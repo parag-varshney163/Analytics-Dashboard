@@ -420,7 +420,8 @@ export default function DemandSideMetricsCards({ data }) {
   ];
   const tableData = sections.flatMap((section) =>
   section.rows.map((row, index) => ({
-    category: index === 0 ? section.title : "",
+    // category: index === 0 ? section.title : "",
+    category:section.title,
     metric: row.metric,
     yesterday: row.yesterday,
     beforeYesterday: row.beforeYesterday,
@@ -434,13 +435,13 @@ const columns = [
   {
     key: "category",
     label: "Category",
-    width: "1.5fr",
+    width: "1fr",
     align: "left",
   },
   {
     key: "metric",
     label: "Metric",
-    width: "2fr",
+    width: "1.2fr",
     align: "left",
   },
   {
