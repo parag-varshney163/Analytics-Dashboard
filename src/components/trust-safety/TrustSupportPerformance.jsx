@@ -10,6 +10,7 @@ export default function TrustSupportPerformance({ data }) {
   const botResolutionRate = data.botResolutionRate || {};
   const peakHours = data.peakHours || {};
   const csatScore = data.csatScore || {};
+  const escalatedByChatbot = data.escalatedByChatbot || {};
 
   const rating = Number(csatScore.rating || 0);
   const filledStars = Math.round(rating);
@@ -58,7 +59,7 @@ export default function TrustSupportPerformance({ data }) {
         style={{
           padding: 28,
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(4, 1fr)",
           gap: 20,
 
         }}
@@ -244,6 +245,50 @@ export default function TrustSupportPerformance({ data }) {
             ))}
           </div>
         </div> */}
+        {/* Escalated by Chatbot */}
+<div
+  style={{
+    border: `1px solid ${colors.cardBorder}`,
+    borderRadius: 20,
+    padding: 24,
+    minHeight: 140,
+  }}
+>
+  <div
+    style={{
+      color: colors.accent,
+      fontSize: 15,
+      fontWeight: 600,
+      marginBottom: 12,
+    }}
+  >
+    Escalated by Chatbot
+  </div>
+
+  <div
+    style={{
+      fontSize: 42,
+      color: colors.textPrimary,
+      marginBottom: 12,
+    }}
+  >
+    {Number(escalatedByChatbot.value || 0).toLocaleString()}
+  </div>
+
+  <div
+    style={{
+      color:
+        escalatedByChatbot.change?.direction === "up"
+          ? "#FF6B6B"
+          : "#6EF7C8",
+      fontSize: 15,
+      fontWeight: 500,
+    }}
+  >
+    {escalatedByChatbot.change?.direction === "up" ? "↗" : "↘"}{" "}
+    {escalatedByChatbot.change?.pct || 0}% vs yesterday
+  </div>
+</div>
       </div>
     </div>
   );

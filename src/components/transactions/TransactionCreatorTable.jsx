@@ -96,13 +96,13 @@ const TransactionCreatorTable = ({ data = [],
         );
       },
     },
-    {
-      key: "date",
-      label: "Transaction Date",
-      width: "1.5fr",
-      render: (value) =>
-        value ? new Date(value).toLocaleString("en-IN") : "-",
-    },
+    // {
+    //   key: "date",
+    //   label: "Transaction Date",
+    //   width: "1.5fr",
+    //   render: (value) =>
+    //     value ? new Date(value).toLocaleString("en-IN") : "-",
+    // },
   ];
   const tableData = data;
 

@@ -105,6 +105,7 @@ import AutoFlagReasonCodesTable from "../components/transactions/AutoFlagReasonC
 import TransactionCreatorTable from "../components/transactions/TransactionCreatorTable";
 import TransactionUserTable from "../components/transactions/TransactionUserTable ";
 import TransactionKPIStats from "../components/transactions/TransactionKPIStats";
+import FilterDropDown from "../components/ui/FilterDropDown";
 import DateFilterBar from "../components/ui/DateFilterBar";
 import axiosInstance from "../api/axiosInstance";
 import Sidebar from "../components/ui/Sidebar";
@@ -161,11 +162,17 @@ const Transactions = () => {
         totalPages: 1,
     });
     const [activeTab, setActiveTab] = useState("creator");
+    const [creatorStatus, setCreatorStatus] = useState("All");
+    const [userStatus, setUserStatus] = useState("All");
+
+    const activeStatus =
+        activeTab === "creator" ? creatorStatus : userStatus;
 
     // Creator Transactions API
     const fetchTransactions = async (
         selectedFilter = filter,
-        selectedPage = page
+        selectedPage = page,
+        selectedStatus = creatorStatus
     ) => {
         try {
             setCreatorLoading(true);
@@ -176,6 +183,10 @@ const Transactions = () => {
                         filter: selectedFilter,
                         page: selectedPage,
                         limit: 10,
+                        status:
+                            selectedStatus === "All"
+                                ? undefined
+                                : selectedStatus.toLowerCase(),
                     },
                 }
             );
@@ -202,7 +213,8 @@ const Transactions = () => {
     // User Transactions API
     const fetchUserTransactions = async (
         selectedFilter = filter,
-        selectedPage = userPage
+        selectedPage = userPage,
+        selectedStatus = userStatus
     ) => {
         try {
             setUserLoading(true);
@@ -213,6 +225,10 @@ const Transactions = () => {
                         filter: selectedFilter,
                         page: selectedPage,
                         limit: 10,
+                        status:
+                            selectedStatus === "All"
+                                ? undefined
+                                : selectedStatus.toLowerCase(),
                     },
                 }
             );
@@ -252,8 +268,8 @@ const Transactions = () => {
     // };
     const fetchAllData = async () => {
         await Promise.all([
-            fetchTransactions(filter, page),
-            fetchUserTransactions(filter, userPage),
+            fetchTransactions(filter, page, creatorStatus),
+            fetchUserTransactions(filter, userPage, userStatus),
         ]);
     };
 
@@ -262,13 +278,13 @@ const Transactions = () => {
     // }, [filter, page, userPage]);
     // Creator table
     useEffect(() => {
-        fetchTransactions(filter, page);
-    }, [filter, page]);
+        fetchTransactions(filter, page, creatorStatus);
+    }, [filter, page, creatorStatus]);
 
     // User table
     useEffect(() => {
-        fetchUserTransactions(filter, userPage);
-    }, [filter, userPage]);
+        fetchUserTransactions(filter, userPage, userStatus);
+    }, [filter, userPage, userStatus]);
 
     return (
         <div
@@ -300,14 +316,31 @@ const Transactions = () => {
                     }}
                     onRefresh={fetchAllData}
                 />
-                <div className="flex flex-wrap gap-4" style={{ marginTop: "22px" }}>
+                {/* <div className="flex flex-wrap gap-4" style={{ marginTop: "22px" }}>
                     {transactionTabs.map((tab) => {
                         const Icon = tab.icon;
 
                         return (
+                            // <Button
+                            //     key={tab.key}
+                            //     onClick={() => setActiveTab(tab.key)}
+                            //     variant={activeTab === tab.key ? "primary" : "secondary"}
+                            //     className="h-14 min-w-[220px]"
+                            // >
+                            //     <Icon size={18} />
+                            //     {tab.label}
+                            // </Button>
                             <Button
                                 key={tab.key}
-                                onClick={() => setActiveTab(tab.key)}
+                                onClick={() => {
+                                    setActiveTab(tab.key);
+
+                                    if (tab.key === "creator") {
+                                        setPage(1);
+                                    } else {
+                                        setUserPage(1);
+                                    }
+                                }}
                                 variant={activeTab === tab.key ? "primary" : "secondary"}
                                 className="h-14 min-w-[220px]"
                             >
@@ -316,9 +349,70 @@ const Transactions = () => {
                             </Button>
                         );
                     })}
+                </div> */}
+                <div
+                    className="flex flex-wrap items-center justify-between gap-4"
+                    style={{ marginTop: "22px" }}
+                >
+                    <div className="flex flex-wrap gap-4">
+                        {transactionTabs.map((tab) => {
+                            const Icon = tab.icon;
+
+                            return (
+                                <Button
+                                    key={tab.key}
+                                    onClick={() => {
+                                        setActiveTab(tab.key);
+
+                                        if (tab.key === "creator") {
+                                            setPage(1);
+                                        } else {
+                                            setUserPage(1);
+                                        }
+                                    }}
+                                    variant={
+                                        activeTab === tab.key
+                                            ? "primary"
+                                            : "secondary"
+                                    }
+                                    className="h-14 min-w-[220px]"
+                                >
+                                    <Icon size={18} />
+                                    {tab.label}
+                                </Button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <span
+                            style={{
+                                color: colors.textSecondary,
+                                fontSize: "14px",
+                                fontWeight: 500,
+                            }}
+                        >
+                            Transaction Status:
+                        </span>
+
+                        <FilterDropDown
+                            options={["All", "Normal", "Flagged"]}
+                            defaultLabel={activeStatus}
+                            width={170}
+                            onSelect={(value) => {
+                                if (activeTab === "creator") {
+                                    setCreatorStatus(value);
+                                    setPage(1);
+                                } else {
+                                    setUserStatus(value);
+                                    setUserPage(1);
+                                }
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className="space-y-6">
-                    <TransactionKPIStats filter={filter} />
+                    <TransactionKPIStats filter={filter} transactionType={activeTab} />
 
                     {activeTab === "creator" && (
                         <TransactionCreatorTable

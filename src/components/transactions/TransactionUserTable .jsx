@@ -86,13 +86,13 @@ const columns = [
       );
     },
   },
-  {
-    key: "date",
-    label: "Transaction Date",
-    width: "1.8fr",
-    render: (value) =>
-      value ? new Date(value).toLocaleString("en-IN") : "-",
-  },
+  // {
+  //   key: "date",
+  //   label: "Transaction Date",
+  //   width: "1.8fr",
+  //   render: (value) =>
+  //     value ? new Date(value).toLocaleString("en-IN") : "-",
+  // },
 ];
 
   return (

@@ -260,6 +260,25 @@ export default function WeeklyReports() {
             //     label: "Period",
             // },
             {
+                key: "accountStatus",
+                label: "Account Status",
+                render: (value) => {
+                    const isActive = value?.toLowerCase() === "active";
+
+                    return (
+                        <span
+                            className="px-3 py-1 rounded-md text-xs capitalize"
+                            style={{
+                                background: isActive ? "#14532D" : "#7F1D1D",
+                                color: "#FFFFFF",
+                            }}
+                        >
+                            {value || "-"}
+                        </span>
+                    );
+                },
+            },
+            {
                 key: "calls",
                 label: "Calls",
             },
