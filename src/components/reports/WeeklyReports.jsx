@@ -34,6 +34,12 @@ const tabs = [
         icon: Wallet,
         endpoint: "/api/v1/reports/payout-summary",
     },
+    {
+        key: "performance-tracker",
+        label: "Performance Tracker",
+        icon: Users,
+        endpoint: "/api/v1/reports/performance-tracker",
+    },
 ];
 
 const filterMap = {
@@ -329,6 +335,112 @@ export default function WeeklyReports() {
         ],
         []
     );
+    const performanceTrackerColumns = useMemo(
+        () => [
+            { key: "userId", label: "User ID" },
+            { key: "name", label: "Creator Name" },
+            { key: "phone", label: "Phone" },
+
+            {
+                key: "onboardingDate",
+                label: "Onboarding Date",
+                render: (value) =>
+                    value ? new Date(value).toLocaleDateString("en-IN") : "-",
+            },
+
+            {
+                key: "level",
+                label: "Level",
+                render: (value) => (
+                    <span
+                        className="px-3 py-1 rounded-md text-xs font-semibold"
+                        style={{
+                            background: colors.purpleLight,
+                            color: colors.purple,
+                        }}
+                    >
+                        Level {value || "-"}
+                    </span>
+                ),
+            },
+
+            { key: "totalCallReceived", label: "Calls Received" },
+            { key: "totalCallAccepted", label: "Calls Accepted" },
+
+            {
+                key: "callAcceptance",
+                label: "Acceptance %",
+                render: (value) => (
+                    <span
+                        className="px-3 py-1 rounded-md text-xs font-semibold"
+                        style={{
+                            background:
+                                Number(value) >= 80
+                                    ? colors.successLight
+                                    : colors.warningLight,
+                            color:
+                                Number(value) >= 80
+                                    ? colors.success
+                                    : colors.warning,
+                        }}
+                    >
+                        {Number(value || 0).toFixed(2)}%
+                    </span>
+                ),
+            },
+
+            {
+                key: "totalTalktimeMins",
+                label: "Talktime (Mins)",
+                render: (value) => Number(value || 0).toFixed(2),
+            },
+
+            {
+                key: "totalTalktimeHrs",
+                label: "Talktime (Hrs)",
+                render: (value) => Number(value || 0).toFixed(2),
+            },
+
+            {
+                key: "avgCallDuration",
+                label: "Avg Call Duration",
+                render: (value) => `${Number(value || 0).toFixed(2)} min`,
+            },
+
+            {
+                key: "avgUserRating",
+                label: "User Rating",
+                render: (value) => (
+                    <span
+                        className="px-3 py-1 rounded-md text-xs font-semibold"
+                        style={{
+                            background: colors.accentLight,
+                            color: colors.accentDark,
+                        }}
+                    >
+                        ★ {Number(value || 0).toFixed(2)}
+                    </span>
+                ),
+            },
+
+            {
+                key: "avgQCRating",
+                label: "QC Rating",
+                render: (value) => (
+                    <span
+                        className="px-3 py-1 rounded-md text-xs font-semibold"
+                        style={{
+                            background: colors.blueLight,
+                            color: colors.blue,
+                        }}
+                    >
+                        ★ {Number(value || 0).toFixed(2)}
+                    </span>
+                ),
+            },
+        ],
+        [],
+    );
     const columns = useMemo(() => {
         switch (activeTab) {
             case "creator-kundli":
@@ -341,10 +453,12 @@ export default function WeeklyReports() {
                 return rechargeTransactionColumns;
             case "payout-summary":
                 return payoutSummaryColumns;
+            case "performance-tracker":
+                return performanceTrackerColumns;
             default:
                 return creatorColumns;
         }
-    }, [activeTab, creatorColumns, userDetailsColumns]);
+    }, [activeTab, creatorColumns, userDetailsColumns, payoutSummaryColumns, performanceTrackerColumns]);
     const handleExport = async () => {
         try {
             const response = await axiosInstance.get(
@@ -510,7 +624,7 @@ export default function WeeklyReports() {
             </div>
 
             {/* Table */}
-            <div
+            {/* <div
                 className="mt-4 rounded-3xl border overflow-hidden"
                 style={{
                     borderColor: colors.cardBorder,
@@ -526,6 +640,38 @@ export default function WeeklyReports() {
                     totalPages={totalPages}
                     onPageChange={setPage}
                 />
+            </div> */}
+            {/* Table */}
+            <div
+                className="mt-4 rounded-3xl border overflow-hidden"
+                style={{
+                    borderColor: colors.cardBorder,
+                    background: colors.cardBg,
+                }}
+            >
+                <div
+                    className={
+                        activeTab === "performance-tracker"
+                            ? "overflow-x-auto custom-scrollbar"
+                            : ""
+                    }
+                >
+                    <div
+                        className={
+                            activeTab === "performance-tracker" ? "min-w-[2500px]" : ""
+                        }
+                    >
+                        <DataTable
+                            columns={columns}
+                            data={rows}
+                            loading={loading}
+                            paginationMode="server"
+                            page={page}
+                            totalPages={totalPages}
+                            onPageChange={setPage}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
