@@ -499,13 +499,14 @@ export default function WeeklyReports() {
     return (
         <div className="space-y-8">
             {/* Date Filter */}
-            {/* <DateFilterBar
+            {activeTab === "performance-tracker" && (<DateFilterBar
                 onFilterChange={(value) =>
                     setFilter(filterMap[value] || "30d")
                 }
                 onRefresh={fetchData}
-            /> */}
-            <div className="flex items-center justify-between mb-4">
+            />
+            )}
+            {activeTab!=="performance-tracker" &&(<div className="flex items-center justify-between mb-4">
                 <div>
                     <div
                         className="px-4 py-2 rounded-xl text-sm font-medium w-fit"
@@ -535,6 +536,7 @@ export default function WeeklyReports() {
                     Refresh
                 </Button>
             </div>
+            )}
 
             {/* Header */}
             <div className="pt-2">
@@ -564,6 +566,11 @@ export default function WeeklyReports() {
                             onClick={() => {
                                 setActiveTab(tab.key);
                                 setPage(1);
+                                setFilter(
+                                    tab.key === "performance-tracker"
+                                        ? "yesterday"
+                                        : "7d"
+                                );
                             }}
                             variant={
                                 activeTab === tab.key
