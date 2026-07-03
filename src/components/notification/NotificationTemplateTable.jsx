@@ -127,7 +127,7 @@ export default function NotificationTemplateTable({ data = [] }) {
             fontWeight: 700,
           }}
         >
-          {value}%
+          {value}
         </span>
       ),
     },
