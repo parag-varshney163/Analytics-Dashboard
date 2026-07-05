@@ -40,6 +40,12 @@ const tabs = [
         icon: Users,
         endpoint: "/api/v1/reports/performance-tracker",
     },
+    {
+        key: "event-tracking",
+        label: "Event Tracking",
+        icon: CreditCard,
+        endpoint: "/api/v1/events/dashboard",
+    },
 ];
 
 const filterMap = {
@@ -441,6 +447,58 @@ export default function WeeklyReports() {
         ],
         [],
     );
+    const eventTrackingColumns = useMemo(
+        () => [
+            {
+                key: "metric",
+                label: "Event",
+                render: (value) =>
+                    value
+                        ?.replaceAll("_", " ")
+                        .replace(/\b\w/g, (c) => c.toUpperCase()),
+            },
+
+            {
+                key: "yesterday",
+                label: "Yesterday",
+            },
+
+            {
+                key: "beforeYesterday",
+                label: "Before Yesterday",
+            },
+
+            {
+                key: "7d",
+                label: "Last 7 Days",
+            },
+
+            {
+                key: "change",
+                label: "Change",
+                render: (value) => {
+                    const isUp = value?.direction === "up";
+
+                    return (
+                        <span
+                            className="px-3 py-1 rounded-md text-xs font-semibold"
+                            style={{
+                                background: isUp
+                                    ? colors.successLight
+                                    : colors.dangerLight,
+                                color: isUp
+                                    ? colors.success
+                                    : colors.danger,
+                            }}
+                        >
+                            {value?.text || "-"}
+                        </span>
+                    );
+                },
+            },
+        ],
+        []
+    );
     const columns = useMemo(() => {
         switch (activeTab) {
             case "creator-kundli":
@@ -455,10 +513,12 @@ export default function WeeklyReports() {
                 return payoutSummaryColumns;
             case "performance-tracker":
                 return performanceTrackerColumns;
+            case "event-tracking":
+                return eventTrackingColumns;
             default:
                 return creatorColumns;
         }
-    }, [activeTab, creatorColumns, userDetailsColumns, payoutSummaryColumns, performanceTrackerColumns]);
+    }, [activeTab, creatorColumns, userDetailsColumns, payoutSummaryColumns, performanceTrackerColumns, eventTrackingColumns]);
     const handleExport = async () => {
         try {
             const response = await axiosInstance.get(
@@ -499,14 +559,14 @@ export default function WeeklyReports() {
     return (
         <div className="space-y-8">
             {/* Date Filter */}
-            {activeTab === "performance-tracker" && (<DateFilterBar
+            {["performance-tracker", "event-tracking"].includes(activeTab) && (<DateFilterBar
                 onFilterChange={(value) =>
                     setFilter(filterMap[value] || "30d")
                 }
                 onRefresh={fetchData}
             />
             )}
-            {activeTab!=="performance-tracker" &&(<div className="flex items-center justify-between mb-4">
+            {!["performance-tracker", "event-tracking"].includes(activeTab) && (<div className="flex items-center justify-between mb-4">
                 <div>
                     <div
                         className="px-4 py-2 rounded-xl text-sm font-medium w-fit"
@@ -567,7 +627,7 @@ export default function WeeklyReports() {
                                 setActiveTab(tab.key);
                                 setPage(1);
                                 setFilter(
-                                    tab.key === "performance-tracker"
+                                    ["performance-tracker", "event-tracking"].includes(tab.key)
                                         ? "yesterday"
                                         : "7d"
                                 );
