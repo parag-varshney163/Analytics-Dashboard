@@ -63,7 +63,7 @@ export default function UserJourneyTable({
             "/api/v1/user-journey",
             {
                 params: {
-                    filter,
+                    
                     ...(date && { date }),
                     exportFormat: "csv",
                 },

@@ -26,6 +26,7 @@ export default function UserJourney() {
 
     const [loading, setLoading] = useState(false);
     const [journeyData, setJourneyData] = useState([]);
+    const [lastUpdated, setLastUpdated] = useState("");
 
     const fetchData = async (
         selectedFilter = filter,
@@ -37,14 +38,15 @@ export default function UserJourney() {
             const { data } = await axiosInstance.get(
                 "/api/v1/user-journey",
                 {
-                    params: {
-                        filter: selectedFilter,
-                        ...(selectedDate && { date: selectedDate }),
-                    },
+                    // params: {
+                    //     filter: selectedFilter,
+                    //     ...(selectedDate && { date: selectedDate }),
+                    // },
                 }
             );
 
             setJourneyData(data.data || []);
+            setLastUpdated(data.lastUpdated || "");
         } catch (err) {
             console.error(err);
         } finally {
@@ -85,7 +87,7 @@ export default function UserJourney() {
             >
                 <div className="space-y-6">
 
-                    <DateFilterBar
+                    {/* <DateFilterBar
                         onFilterChange={(value) =>
                             setFilter(
                                 filterMap[value] || "yesterday"
@@ -95,8 +97,8 @@ export default function UserJourney() {
                             fetchData(filter, date)
                         }
                         onCustomDateChange={setDate}
-                    />
-                    <div
+                    /> */}
+                    {/* <div
                         style={{
                             marginBottom: "20px",
                         }}
@@ -140,7 +142,92 @@ export default function UserJourney() {
                             selected date or predefined date filter. Export the report
                             as CSV for further analysis.
                         </p>
-                    </div>
+                    </div> */}
+                    <div
+    className="flex items-start justify-between gap-6"
+    style={{ marginBottom: "20px" }}
+>
+    {/* Left */}
+    <div>
+        <div
+            style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginBottom: "6px",
+            }}
+        >
+            <BarChart3
+                size={24}
+                color={colors.accent}
+            />
+
+            <h2
+                style={{
+                    color: colors.textPrimary,
+                    fontSize: "24px",
+                    fontWeight: 700,
+                    margin: 0,
+                }}
+            >
+                User Journey
+            </h2>
+        </div>
+
+        <p
+            style={{
+                color: colors.textSecondary,
+                fontSize: "14px",
+                lineHeight: "22px",
+                margin: 0,
+                maxWidth: "900px",
+            }}
+        >
+            Analyze user retention and engagement across different
+            lifecycle stages. This report shows daily platform DAU,
+            retention percentage, recharge activity, revenue
+            contribution, call volume, and total call duration.
+            Export the report as CSV for further analysis.
+        </p>
+    </div>
+
+    {/* Right */}
+    <div
+        className="text-right"
+        style={{
+            minWidth: "220px",
+        }}
+    >
+        <div
+            style={{
+                color: colors.textSecondary,
+                fontSize: "18px",
+                fontWeight:700,
+                marginBottom: "4px",
+            }}
+        >
+            Last Updated
+        </div>
+
+        <div
+            style={{
+                color: colors.textPrimary,
+                fontWeight: 600,
+                fontSize: "16px",
+            }}
+        >
+            {lastUpdated
+                ? new Date(lastUpdated).toLocaleString("en-IN", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                  })
+                : "-"}
+        </div>
+    </div>
+</div>
 
                     <UserJourneyTable
                         data={journeyData}
