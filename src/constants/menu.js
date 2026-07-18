@@ -1,4 +1,4 @@
-import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, User2, ShoppingCart, Wallet, Bell, ScanFace, File, Wallet2, } from "lucide-react";
+import { Shield, Zap, Calendar, Flag, Star, Award, MessageSquare, Bot, Trash2, BarChart3, LogOut, Radio, GitGraph, LineChart, Phone, Ban, IndianRupee, MessageCircle, ShieldCheck, User2, ShoppingCart, Wallet, Bell, ScanFace, File, Wallet2, User, } from "lucide-react";
 
 
 const MENU_ITEMS = [
@@ -60,6 +60,15 @@ const MENU_ITEMS = [
     name: "Transactions",
     icon: Wallet2,
     path: "/transactions",
+    permission: {
+      section: "analyticsDashboard",
+      key: "weeklyReport",
+    },
+  },
+   {
+    name: "User Journey",
+    icon: User,
+    path: "/user-journey",
     permission: {
       section: "analyticsDashboard",
       key: "weeklyReport",

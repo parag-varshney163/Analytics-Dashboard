@@ -10,6 +10,7 @@ import Transactions from "./pages/Transactions";
 import PublicRoute from "./routes/PublicRoute";
 // Pages you currently have
 import WelcomePage from "./pages/WelcomePage";
+import UserJourney from "./pages/UserJourney";
 import TrustSafety from "./pages/TrustSafety";
 import SupplySide from "./pages/SupplySide";
 import DemandSide from "./pages/DemandSide";
@@ -113,6 +114,14 @@ function App() {
           element={
             <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
               <Transactions/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.USER_JOURNEY}
+          element={
+            <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
+              <UserJourney/>
             </ProtectedRoute>
           }
         />

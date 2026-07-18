@@ -10,6 +10,7 @@ const ROUTES = {
   TRUST_SAFETY:"/trust-safety",
   REPORTS:"/reports",
   TRANSACTIONS:"/transactions",
+  USER_JOURNEY:"/user-journey"
 };
 
 export default ROUTES;

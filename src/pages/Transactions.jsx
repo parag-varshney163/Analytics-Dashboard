@@ -316,40 +316,6 @@ const Transactions = () => {
                     }}
                     onRefresh={fetchAllData}
                 />
-                {/* <div className="flex flex-wrap gap-4" style={{ marginTop: "22px" }}>
-                    {transactionTabs.map((tab) => {
-                        const Icon = tab.icon;
-
-                        return (
-                            // <Button
-                            //     key={tab.key}
-                            //     onClick={() => setActiveTab(tab.key)}
-                            //     variant={activeTab === tab.key ? "primary" : "secondary"}
-                            //     className="h-14 min-w-[220px]"
-                            // >
-                            //     <Icon size={18} />
-                            //     {tab.label}
-                            // </Button>
-                            <Button
-                                key={tab.key}
-                                onClick={() => {
-                                    setActiveTab(tab.key);
-
-                                    if (tab.key === "creator") {
-                                        setPage(1);
-                                    } else {
-                                        setUserPage(1);
-                                    }
-                                }}
-                                variant={activeTab === tab.key ? "primary" : "secondary"}
-                                className="h-14 min-w-[220px]"
-                            >
-                                <Icon size={18} />
-                                {tab.label}
-                            </Button>
-                        );
-                    })}
-                </div> */}
                 <div
                     className="flex flex-wrap items-center justify-between gap-4"
                     style={{ marginTop: "22px" }}
