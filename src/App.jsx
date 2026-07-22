@@ -3,6 +3,7 @@ import React from "react";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UpdatePassword from "./pages/UpdatePassword";
+import ServerMonitor from "./pages/ServerMonitor";
 import ResetPassword from "./pages/ResetPassword";
 import Notifications from "./pages/Notifications";
 import Unauthorized from "./pages/Unauthorized";
@@ -122,6 +123,14 @@ function App() {
           element={
             <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
               <UserJourney/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path={ROUTES.SERVER_MONITOR}
+          element={
+            <ProtectedRoute section="analyticsDashboard" permissionKey="weeklyReport">
+              <ServerMonitor/>
             </ProtectedRoute>
           }
         />
