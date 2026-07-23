@@ -15,6 +15,8 @@ const ServerMonitor = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [metrics, setMetrics] = useState([]);
+    const [systemHealth, setSystemHealth] = useState([]);
+    const [serverStats, setServerStats] = useState([]);
 
     //   const fetchServerInfo = async () => {
     //     try {
@@ -37,13 +39,17 @@ const ServerMonitor = () => {
         try {
             setLoading(true);
 
-            const [infoRes, metricsRes] = await Promise.all([
+            const [infoRes, metricsRes, healthRes, statsRes] = await Promise.all([
                 axios.get("https://api.chatspark.in/api/v2/info"),
                 axios.get("https://api.chatspark.in/api/v2/system"),
+                axios.get("https://api.chatspark.in/api/v2/performance"),
+                axios.get("https://api.chatspark.in/api/v2/details"),
             ]);
 
             setServerInfo([infoRes.data]);
             setMetrics(formatMetrics(metricsRes.data));
+            setSystemHealth(formatHealthData(healthRes.data));
+            setServerStats(formatServerStats(statsRes.data));
 
             setError("");
         } catch (err) {
@@ -56,7 +62,7 @@ const ServerMonitor = () => {
         fetchServerInfo();
 
         // Refresh every 30 seconds
-        const interval = setInterval(fetchServerInfo, 30000);
+        const interval = setInterval(fetchServerInfo, 60000);
 
         return () => clearInterval(interval);
     }, []);
@@ -278,6 +284,113 @@ const ServerMonitor = () => {
             width: "2fr",
         },
     ];
+    const formatHealthData = (data) => [
+        {
+            category: "CPU",
+            metric: "Usage",
+            value: `${data.cpu.usagePercent}%`,
+        },
+        {
+            category: "CPU",
+            metric: "Cores",
+            value: data.cpu.cores,
+        },
+        {
+            category: "CPU",
+            metric: "Load Average",
+            value: data.cpu.loadAverage.join(", "),
+        },
+        {
+            category: "Memory",
+            metric: "RSS",
+            value: `${data.memory.rssMB} MB`,
+        },
+        {
+            category: "Memory",
+            metric: "Heap Used",
+            value: `${data.memory.heapUsedMB} MB`,
+        },
+        {
+            category: "Memory",
+            metric: "Heap Total",
+            value: `${data.memory.heapTotalMB} MB`,
+        },
+        {
+            category: "Performance",
+            metric: "Event Loop Delay",
+            value: data.performance.eventLoopDelay,
+        },
+        {
+            category: "Performance",
+            metric: "Uptime",
+            value: data.performance.uptime,
+        },
+        {
+            category: "Server",
+            metric: "Response Time",
+            value: `${data.responseTimeMs} ms`,
+        },
+        {
+            category: "Server",
+            metric: "Timestamp",
+            value: data.timestamp,
+        },
+    ];
+    const formatServerStats = (data) => [
+        {
+            category: "Server",
+            metric: "Uptime",
+            value: `${Math.floor(data.uptime)} sec`,
+        },
+
+        {
+            category: "Memory",
+            metric: "Total Memory",
+            value: `${data.memory.totalMB} MB`,
+        },
+        {
+            category: "Memory",
+            metric: "Used Memory",
+            value: `${data.memory.usedMB} MB`,
+        },
+        {
+            category: "Memory",
+            metric: "Free Memory",
+            value: `${data.memory.freeMB} MB`,
+        },
+        {
+            category: "Memory",
+            metric: "Usage",
+            value: `${data.memory.usedPercent}%`,
+        },
+
+        {
+            category: "CPU",
+            metric: "Usage",
+            value: `${data.cpu.usagePercent}%`,
+        },
+        {
+            category: "CPU",
+            metric: "Cores",
+            value: data.cpu.cores,
+        },
+        {
+            category: "CPU",
+            metric: "Load Average",
+            value: data.cpu.loadAverage.join(", "),
+        },
+
+        {
+            category: "Server",
+            metric: "Response Time",
+            value: `${data.responseTimeMs} ms`,
+        },
+        {
+            category: "Server",
+            metric: "Timestamp",
+            value: data.timestamp,
+        },
+    ];
 
     return (
         <div
@@ -315,7 +428,7 @@ const ServerMonitor = () => {
                         marginTop: 6,
                     }}
                 >
-                    Live server information (Auto refresh every 30 seconds)
+                    Live server information (Auto refresh every 60 seconds)
                 </p>
 
                 <DataTable
@@ -339,6 +452,43 @@ const ServerMonitor = () => {
                 <DataTable
                     columns={metricsColumns}
                     data={metrics}
+                    loading={loading}
+                    error={error}
+                />
+                <h2
+                    style={{
+                        marginTop: 40,
+                        marginBottom: 12,
+                        fontSize: 22,
+                        fontWeight: 700,
+                        color: colors.textPrimary,
+                    }}
+                >
+                    Health Metrics
+                </h2>
+
+                <DataTable
+                    columns={metricsColumns}
+                    data={systemHealth}
+                    loading={loading}
+                    error={error}
+                />
+
+                <h2
+                    style={{
+                        marginTop: 40,
+                        marginBottom: 12,
+                        fontSize: 22,
+                        fontWeight: 700,
+                        color: colors.textPrimary,
+                    }}
+                >
+                    Server Statistics
+                </h2>
+
+                <DataTable
+                    columns={metricsColumns}
+                    data={serverStats}
                     loading={loading}
                     error={error}
                 />
